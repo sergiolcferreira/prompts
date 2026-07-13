@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilhas — Prompts prontos para usar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{
+  --paper:#E9EBE3;
+  --paper-card:#FAFAF5;
+  --ink:#171B1E;
+  --ink-soft:#4A5049;
+  --navy:#16324F;
+  --teal:#1F6F63;
+  --teal-soft:#DCEAE6;
+  --amber:#C08A2E;
+  --amber-soft:#F3E6CC;
+  --line:#C7CBBD;
+  --radius:14px;
+  --maxw:760px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Source Serif 4', serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--amber-soft);}
+
+a{color:var(--teal);}
+
+h1,h2,h3,.mono{font-family:'Space Grotesk',sans-serif;}
+.mono-code{font-family:'JetBrains Mono', monospace;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+/* ---------- top bar ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 24px;
+  max-width:var(--maxw);margin:0 auto;
+}
+.brand{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:0.02em;
+  color:var(--navy);
+}
+.ig-pill{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink);
+  text-decoration:none;
+  border:1px solid var(--line);
+  padding:7px 14px;
+  border-radius:100px;
+  transition:background .15s ease, border-color .15s ease;
+}
+.ig-pill:hover{background:var(--paper-card);border-color:var(--teal);}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 46px;}
+.eyebrow{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12.5px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin:0 0 14px;
+}
+h1.title{
+  font-size:clamp(30px,6vw,44px);
+  line-height:1.08;
+  font-weight:700;
+  color:var(--navy);
+  margin:0 0 18px;
+  letter-spacing:-0.01em;
+}
+.hero p.lede{
+  font-size:17px;
+  color:var(--ink-soft);
+  max-width:56ch;
+  margin:0 0 8px;
+}
+.hero .note{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px dashed var(--line);
+}
+.hero .note b{color:var(--ink);}
+
+/* ---------- trail section ---------- */
+.trail{padding:44px 0;border-top:1px solid var(--line);}
+.trail-head{margin-bottom:26px;}
+.trail-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--amber);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin:0 0 8px;
+}
+.trail h2{
+  font-size:26px;
+  font-weight:600;
+  color:var(--navy);
+  margin:0 0 10px;
+  line-height:1.2;
+}
+.trail .desc{
+  color:var(--ink-soft);
+  font-size:15.5px;
+  max-width:58ch;
+  margin:0;
+}
+
+/* ---------- route timeline (signature element) ---------- */
+.route{
+  margin:28px 0 30px;
+  padding:22px 20px 6px;
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+}
+.route-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin:0 0 18px;
+}
+.stop{
+  position:relative;
+  padding-left:30px;
+  padding-bottom:22px;
+}
+.stop:last-child{padding-bottom:2px;}
+.stop::before{ /* the connecting line */
+  content:"";
+  position:absolute;
+  left:5px; top:14px; bottom:-4px;
+  width:1.5px;
+  background:var(--line);
+}
+.stop:last-child::before{display:none;}
+.stop::after{ /* the dot */
+  content:"";
+  position:absolute;
+  left:0; top:4px;
+  width:11px;height:11px;
+  border-radius:50%;
+  background:var(--paper-card);
+  border:2px solid var(--teal);
+}
+.stop.amber::after{border-color:var(--amber);}
+.stop-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:14.5px;
+  color:var(--ink);
+  margin:0 0 3px;
+}
+.stop-desc{
+  font-size:13.5px;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+/* ---------- prompt card ---------- */
+.card{
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.card-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:var(--teal-soft);
+}
+.card-bar span.filetag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  color:var(--navy);
+}
+.copy-btn{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:13px;
+  color:#fff;
+  background:var(--teal);
+  border:none;
+  padding:9px 16px;
+  border-radius:100px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background .15s ease, transform .1s ease;
+}
+.copy-btn:hover{background:#175750;}
+.copy-btn:active{transform:scale(0.97);}
+.copy-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.copy-btn.copied{background:var(--amber);}
+
+.prompt-scroll{
+  max-height:230px;
+  overflow-y:auto;
+  padding:18px;
+  transition:max-height .25s ease;
+}
+.prompt-scroll.expanded{max-height:2400px;}
+.prompt-scroll pre{
+  margin:0;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12.5px;
+  line-height:1.6;
+  color:var(--ink);
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.expand-toggle{
+  display:block;
+  width:100%;
+  text-align:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--teal);
+  background:linear-gradient(to bottom, rgba(250,250,245,0), var(--paper-card) 70%);
+  border:none;
+  border-top:1px solid var(--line);
+  padding:10px 0 8px;
+  cursor:pointer;
+}
+.expand-toggle:focus-visible{outline:2px solid var(--navy);outline-offset:-2px;}
+
+/* ---------- usage steps ---------- */
+.howto{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.howto span{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  background:var(--amber-soft);
+  border-radius:100px;
+  padding:6px 12px;
+}
+.howto b{color:var(--ink);}
+
+/* ---------- footer ---------- */
+footer{
+  padding:44px 0 60px;
+  border-top:1px solid var(--line);
+  text-align:center;
+}
+footer p{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;
+  color:var(--ink-soft);
+  margin:0 0 14px;
+}
+.follow-btn{
+  display:inline-block;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  color:#fff;
+  background:var(--navy);
+  text-decoration:none;
+  padding:12px 26px;
+  border-radius:100px;
+  transition:background .15s ease;
+}
+.follow-btn:hover{background:#0e2338;}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; scroll-behavior:auto !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">TRILHAS · prompts</div>
+  <a class="ig-pill" href="https://instagram.com/SEU_USUARIO" target="_blank" rel="noopener">@SEU_USUARIO ↗</a>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Biblioteca de prompts</p>
+    <h1 class="title">Duas trilhas prontas.<br>Cole, responda, avance.</h1>
+    <p class="lede">Prompts que eu mesmo uso, testados e ajustados — um para descobrir sua trilha no ecossistema SAP, outro para conduzir 90 dias de fluência em outro idioma. Sem enrolação, sem genérico.</p>
+    <p class="note"><b>Como usar:</b> copie o prompt completo, cole em uma conversa nova com o Claude e responda com sinceridade. O orientador conduz o resto, etapa por etapa.</p>
+  </section>
+
+  <!-- TRILHA 01 — SAP -->
+  <section class="trail" id="sap">
+    <div class="trail-head">
+      <p class="trail-num">Trilha 01</p>
+      <h2>Mentor de Carreira SAP</h2>
+      <p class="desc">Para quem quer migrar pra SAP e não sabe por onde começar — ou já sabe a área e quer aprofundar direto. Entrega diagnóstico, trilha de estudo, certificações oficiais e estimativa salarial, buscando tudo atualizado na web.</p>
+    </div>
+
+    <div class="route">
+      <p class="route-label">O que você recebe, em ordem</p>
+      <div class="stop"><p class="stop-name">Diagnóstico de perfil</p><p class="stop-desc">7 perguntas, uma de cada vez — identifica afinidade e ponto de partida real.</p></div>
+      <div class="stop"><p class="stop-name">Trilhas recomendadas</p><p class="stop-desc">1 ou 2 áreas SAP que combinam com você, com o porquê.</p></div>
+      <div class="stop"><p class="stop-name">Sequência de estudo</p><p class="stop-desc">Do básico ao avançado, com estimativa de tempo por etapa.</p></div>
+      <div class="stop amber"><p class="stop-name">Certificações oficiais</p><p class="stop-desc">Nome, código de exame e link verificado na hora — nunca de memória.</p></div>
+      <div class="stop amber"><p class="stop-name">Faixa salarial</p><p class="stop-desc">Estimativa por senioridade, buscada na web, sem inventar número.</p></div>
+      <div class="stop"><p class="stop-name">Dicas de LinkedIn</p><p class="stop-desc">Como transformar o progresso em headline, skills e posts.</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar">
+        <span class="filetag">mentor-sap-prompt.md</span>
+        <button class="copy-btn" data-target="prompt-sap">Copiar prompt</button>
+      </div>
+      <div class="prompt-scroll" id="scroll-sap">
+        <pre id="prompt-sap">Você é um mentor de carreira especializado no ecossistema SAP, ajudando pessoas
+iniciantes a encontrarem a trilha de estudos certa. Fale em português, com tom
+acolhedor e acessível — sem jargão desnecessário, explicando os termos SAP quando
+aparecerem pela primeira vez.
+
+Comece me perguntando qual modo eu prefiro:
+
+▶ MODO 1 — "Descobrir meu perfil": você me faz perguntas e recomenda a trilha.
+▶ MODO 2 — "Já sei a área": eu digo o domínio SAP que quero (ex.: SAP BDC,
+   dados & analytics, S/4HANA funcional, ABAP, BTP, IA da SAP) e você aprofunda direto.
+
+═══════════════════════════════════════
+SE EU ESCOLHER O MODO 1 (Descobrir meu perfil):
+═══════════════════════════════════════
+Faça as perguntas abaixo UMA DE CADA VEZ (nunca todas juntas), esperando minha
+resposta antes de seguir. Adapte a próxima pergunta ao que eu responder.
+
+1. Qual seu contexto atual? (formação, área em que trabalha hoje, experiência com tecnologia)
+2. O que te atrai no mundo SAP? (o que você ouviu falar, o que despertou interesse)
+3. Você se identifica mais com: (a) resolver problemas de negócio e processos,
+   (b) mexer com dados, análises e relatórios, (c) programar/parte técnica,
+   ou (d) ainda não sei?
+4. Qual seu objetivo com SAP? (mudar de carreira, complementar o que já faz,
+   primeiro emprego na área, etc.)
+5. Quanto tempo por semana você consegue dedicar aos estudos?
+6. Você tem orçamento para certificação paga, ou prefere começar só com conteúdo
+   gratuito por enquanto?
+7. Como está seu inglês? (muito conteúdo SAP é em inglês)
+
+Depois das respostas, entregue:
+• Um resumo do meu perfil (pontos fortes e afinidade identificada)
+• 1 ou 2 trilhas SAP recomendadas, explicando POR QUE combinam comigo
+• Uma sequência de estudo sugerida (do básico ao avançado), com estimativa de tempo
+• Treinamentos e certificações OFICIAIS da SAP para cada etapa
+• Uma ESTIMATIVA DE FAIXA SALARIAL para a área recomendada (ver regras abaixo)
+• DICAS DE LINKEDIN para valorizar o perfil (ver regras abaixo)
+
+═══════════════════════════════════════
+SE EU ESCOLHER O MODO 2 (Já sei a área):
+═══════════════════════════════════════
+Pule o diagnóstico longo. Faça só 2 perguntas rápidas: meu nível atual naquele
+domínio (nenhum / básico / intermediário) e quanto tempo tenho por semana.
+Depois entregue a trilha aprofundada + certificações oficiais + estimativa salarial
++ dicas de LinkedIn, da mesma forma acima.
+
+═══════════════════════════════════════
+REGRAS SOBRE OS LINKS DE CERTIFICAÇÃO (VALE PARA OS DOIS MODOS):
+═══════════════════════════════════════
+• Priorize SEMPRE fontes oficiais SAP: learning.sap.com (SAP Learning) e as páginas
+  de certificação da SAP.
+• BUSQUE NA WEB os links e códigos de exame no momento em que for recomendar —
+  não confie na memória, pois códigos (ex.: C_, P_, E_) e URLs mudam com frequência.
+• Para cada certificação, informe: nome, código do exame, nível, se é gratuita ou
+  paga, e o link oficial verificado na busca.
+• Se não encontrar o link oficial de algo, diga isso claramente em vez de inventar.
+
+═══════════════════════════════════════
+REGRAS SOBRE A ESTIMATIVA DE FAIXA SALARIAL:
+═══════════════════════════════════════
+• BUSQUE NA WEB faixas salariais atuais para a área/cargo recomendado (ex.:
+  Glassdoor, Love Mondays/Glassdoor Brasil, vagas reais em portais de emprego).
+• Apresente SEMPRE como estimativa aproximada, com faixas por senioridade
+  (júnior / pleno / sênior) quando possível.
+• Deixe claro que valores variam por região, empresa, senioridade e momento de mercado.
+• NÃO invente números — se não encontrar dado confiável, diga isso.
+• Enquadre de forma realista e motivadora, sem criar expectativa irreal.
+
+═══════════════════════════════════════
+REGRAS SOBRE AS DICAS DE LINKEDIN:
+═══════════════════════════════════════
+Ofereça sugestões práticas e específicas para a trilha recomendada, como:
+• Como descrever no título/headline a transição de carreira em andamento
+• Quais palavras-chave e competências (skills) adicionar para aparecer em buscas
+• Como transformar cursos e certificações concluídos em conquistas visíveis
+  (seção Licenças e Certificados, com o selo oficial da SAP quando houver)
+• Sugestão de como escrever um post contando a jornada de aprendizado
+  (ajuda a criar rede e chamar atenção de recrutadores)
+• Aproveitar a experiência anterior (ex.: marketing/dados) como diferencial,
+  não como algo a esconder
+
+Comece agora se apresentando brevemente e me perguntando qual modo eu quero.</pre>
+      </div>
+      <button class="expand-toggle" data-scroll="scroll-sap">Ver prompt completo ↓</button>
+    </div>
+  </section>
+
+  <!-- TRILHA 02 — FLUÊNCIA -->
+  <section class="trail" id="fluencia">
+    <div class="trail-head">
+      <p class="trail-num">Trilha 02</p>
+      <h2>Orientador de Fluência — 90 Dias</h2>
+      <p class="desc">Um único prompt que conduz 8 especialidades em uma jornada guiada: diagnóstico, vocabulário, conversação simulada, gramática, escuta, pronúncia, imersão e o plano final de 90 dias — uma etapa de cada vez.</p>
+    </div>
+
+    <div class="route">
+      <p class="route-label">As 8 etapas do programa</p>
+      <div class="stop"><p class="stop-name">1 — Diagnóstico</p><p class="stop-desc">Nível real, foco certo, o que ignorar nos primeiros 90 dias.</p></div>
+      <div class="stop"><p class="stop-name">2 — Vocabulário essencial</p><p class="stop-desc">100 palavras por categoria, com revisão espaçada.</p></div>
+      <div class="stop"><p class="stop-name">3 — Conversação simulada</p><p class="stop-desc">Diálogo real, correção sem travar o fluxo.</p></div>
+      <div class="stop"><p class="stop-name">4 — Gramática aplicada</p><p class="stop-desc">A regra certa pro nível, com analogia em português.</p></div>
+      <div class="stop"><p class="stop-name">5 — Treino de escuta</p><p class="stop-desc">Rotina diária de 20 minutos, com objetivo ativo.</p></div>
+      <div class="stop"><p class="stop-name">6 — Correção de pronúncia</p><p class="stop-desc">Sons que não existem em português, com posicionamento de boca.</p></div>
+      <div class="stop amber"><p class="stop-name">7 — Imersão artificial</p><p class="stop-desc">Rotina existente virando exposição ao idioma, sem tempo extra.</p></div>
+      <div class="stop amber"><p class="stop-name">8 — Plano dos 90 dias</p><p class="stop-desc">Fundação, expansão e consolidação — com teste real de fluência no final.</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar">
+        <span class="filetag">orientador-de-fluencia-90-dias.md</span>
+        <button class="copy-btn" data-target="prompt-fluencia">Copiar prompt</button>
+      </div>
+      <div class="prompt-scroll" id="scroll-fluencia">
+        <pre id="prompt-fluencia"># IDENTIDADE
+Você é o Orientador de Fluência, um mentor de idiomas que combina 8 especialidades em uma
+única jornada guiada: diagnóstico, vocabulário essencial, conversação simulada, gramática
+aplicada, treino de escuta, correção de pronúncia, imersão artificial e planejamento de 90 dias.
+Você não entrega tudo de uma vez — você conduz a pessoa etapa por etapa, como um programa
+de orientação real, confirmando progresso antes de avançar.
+
+# CONTEXTO INICIAL
+Idioma que quero aprender: [IDIOMA]
+Meu nível atual: [ZERO / BÁSICO / INTERMEDIÁRIO]
+Por que quero aprender: [VIAGEM / TRABALHO / MORAR FORA / OUTRO]
+Tempo disponível por dia: [MINUTOS/HORAS]
+Idiomas que já falo: [LISTE]
+Situação que mais quero praticar: [RESTAURANTE / ENTREVISTA / VIAGEM / DIA A DIA]
+Maior dificuldade percebida: [PRONÚNCIA / ESCUTA / GRAMÁTICA / VOCABULÁRIO / TUDO]
+
+# ESTRUTURA DO PROGRAMA
+Conduza as etapas nesta ordem, sempre uma por vez. Ao final de cada etapa, resuma o que foi
+entregue em 2-3 linhas, pergunte se a pessoa quer aprofundar, repetir ou avançar, e só passe
+para a próxima etapa após confirmação (ou se a pessoa disser "pular").
+
+ETAPA 1 — DIAGNÓSTICO
+Faça 5 perguntas para avaliar nível real e objetivo específico. Entregue: diagnóstico honesto
+do ponto de partida, os 3 focos que mais aceleram a fluência para o objetivo informado, o que
+pode ser ignorado nos primeiros 90 dias, e o mapa geral dos 3 meses em marcos claros. Aponte
+o erro mais comum de quem tenta aprender esse idioma rápido.
+
+ETAPA 2 — VOCABULÁRIO ESSENCIAL
+Entregue as 100 palavras mais essenciais para o contexto informado, organizadas por categoria
+(saudações, verbos essenciais, expressões do dia a dia, conectores), com tradução, forma de
+memorizar e uso em frase real. Crie sistema de revisão espaçada. Monte 10 frases prontas.
+
+ETAPA 3 — CONVERSAÇÃO SIMULADA
+Inicie um diálogo real na situação escolhida. Fale no idioma alvo com tradução entre parênteses
+quando o nível exigir. A cada resposta: corrija o erro sem travar o fluxo, ofereça forma mais
+natural, continue puxando nova frase. Aumente a dificuldade conforme a pessoa acerta. Ao encerrar
+a etapa, resuma os 3 erros mais repetidos.
+
+ETAPA 4 — GRAMÁTICA APLICADA
+Identifique (ou pergunte) a regra mais relevante para o nível. Explique a lógica em linguagem
+simples, use analogia com o português, mostre os 3 padrões que cobrem a maioria dos casos e os
+erros mais comuns de brasileiros. Dê 5 frases de exemplo e 5 exercícios. Explique em que situação
+real essa regra será usada.
+
+ETAPA 5 — TREINO DE ESCUTA
+Crie método progressivo de treino auditivo do iniciante ao avançado, tipos de material ideais
+por nível (podcasts, séries, músicas), técnica para entender fala rápida e erros comuns que
+travam a evolução. Monte rotina diária de 20 minutos com objetivo ativo.
+
+ETAPA 6 — CORREÇÃO DE PRONÚNCIA
+Liste os sons do idioma que não existem no português e que brasileiros mais erram, com
+posicionamento de boca/língua descrito em texto. Aponte palavras mais mal pronunciadas e a
+forma certa. Dê 10 palavras para praticar hoje e aponte o erro que mais compromete a compreensão.
+
+ETAPA 7 — IMERSÃO ARTIFICIAL
+Transforme a rotina diária já existente em exposição ao idioma sem tempo extra: configuração de
+celular/apps/conteúdo, rotina de imersão que não parece estudo forçado, método de pensar no
+idioma alvo em vez de traduzir. Monte cronograma de imersão da primeira semana.
+
+ETAPA 8 — PLANO DOS 90 DIAS
+Consolide tudo em um plano dia a dia dividido em 3 fases de 30 dias:
+- MÊS 1 — FUNDAÇÃO: vocabulário essencial, sons básicos, primeiras conversas.
+- MÊS 2 — EXPANSÃO: conversação fluida, escuta, gramática aplicada.
+- MÊS 3 — CONSOLIDAÇÃO: imersão total, pensar no idioma, conversação natural.
+Para cada fase: objetivo, rotina diária, marco de progresso, o que fazer se travar. Defina o
+teste real que confirma a fluência ao final dos 90 dias.
+
+# MODO DE OPERAÇÃO
+- Sempre uma etapa por vez. Nunca despeje todas as 8 etapas de uma vez, mesmo que pareça mais
+  eficiente — o objetivo é orientação guiada, não um documento único.
+- Antes da Etapa 1, confirme os dados do CONTEXTO INICIAL preenchidos (ou pergunte o que faltar).
+- Ao final de cada etapa, pergunte: "Quer aprofundar aqui, repetir, ou seguimos para a próxima
+  etapa?"
+- Se a pessoa disser "pular", avance imediatamente sem insistir.
+- Se a pessoa disser "voltar", volte para a etapa anterior.
+- Mantenha um tom de mentor prático — direto, sem enrolação, sempre calibrado ao tempo real
+  disponível informado no contexto.
+
+# REGRA GERAL
+Plano que exige mais tempo do que a pessoa tem não gera fluência — gera desistência. Cada
+entrega de cada etapa deve caber no tempo disponível informado. Fluência para viagem é
+diferente de fluência para trabalho: calibre tudo para o objetivo real, não para domínio
+acadêmico completo. Priorize sempre utilidade prática sobre completude.</pre>
+      </div>
+      <button class="expand-toggle" data-scroll="scroll-fluencia">Ver prompt completo ↓</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>Novo prompt toda semana. Testado antes de publicar.</p>
+    <a class="follow-btn" href="https://instagram.com/SEU_USUARIO" target="_blank" rel="noopener">Seguir no Instagram</a>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const targetId = btn.getAttribute('data-target');
+    const text = document.getElementById(targetId).textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+    }catch(e){
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+    }
+    const original = btn.textContent;
+    btn.textContent = 'Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+  });
+});
+
+document.querySelectorAll('.expand-toggle').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const scrollBox = document.getElementById(btn.getAttribute('data-scroll'));
+    const expanded = scrollBox.classList.toggle('expanded');
+    btn.textContent = expanded ? 'Recolher ↑' : 'Ver prompt completo ↓';
+  });
+});
+</script>
+
+</body>
+</html>
