@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sérgio Ferreira — Trilhas & Prompts de IA</title>
-<meta name="description" content="Prompts de IA testados de verdade. Trilhas guiadas de carreira, imagem pessoal, idiomas e produtividade. Cada trilha indica a IA em que funciona melhor.">
+<meta name="description" content="Prompts de IA testados de verdade. Trilhas guiadas de carreira, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
 <meta property="og:title" content="Prompts testados de verdade — Sérgio Ferreira">
-<meta property="og:description" content="Trilhas guiadas de IA para carreira SAP, imagem pessoal, idiomas e produtividade. Cada trilha indica a IA em que funciona melhor.">
+<meta property="og:description" content="Trilhas guiadas de IA para carreira SAP, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
 <meta property="og:image" content="https://sergiolcferreira.github.io/prompts/og-image.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -644,9 +644,160 @@ acadêmico completo. Priorize sempre utilidade prática sobre completude.</pre>
     </div>
   </details>
 
+  <!-- ============ TRILHA 03 ============ -->
+  <details class="trilha" id="ata90s">
+    <summary>
+      <span class="t-num">03</span>
+      <span class="t-head">
+        <h2>Ata em 90 Segundos</h2>
+        <p>Transforme qualquer transcript de reunião em uma ata executiva de uma página.</p>
+        <span class="plat">funciona em: <b>qualquer IA</b> · uso direto no Copilot/Teams</span>
+      </span>
+      <span class="t-arrow">▾</span>
+    </summary>
+    <div class="t-body">
+      <p class="route-label">O que essa ata entrega</p>
+      <div class="stop"><p class="stop-name">Cabeçalho</p><p class="stop-desc">Reunião, data, participantes — direto do transcript.</p></div>
+      <div class="stop"><p class="stop-name">Decisões</p><p class="stop-desc">Só o que ficou decidido. Sem narrar quem falou o quê.</p></div>
+      <div class="stop g"><p class="stop-name">Ações</p><p class="stop-desc">Tabela com responsável, prazo e status — só quem aceitou a tarefa.</p></div>
+      <div class="stop g"><p class="stop-name">Riscos e pontos abertos</p><p class="stop-desc">Dependências, decisões adiadas e pontos ambíguos do transcript.</p></div>
+
+      <div class="notice">
+        <b>Dois modos de uso:</b> no <b>Copilot dentro do Teams</b>, cole o prompt e o transcript da reunião é usado automaticamente. Em <b>outras IAs</b> (ChatGPT, Claude, Gemini), cole o prompt e substitua o campo "TRANSCRIPT DA REUNIÃO" pelo texto exportado do Teams/Meet/Zoom.
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-bar">
+          <span class="filetag">ata-em-90-segundos.md</span>
+          <button class="copy-btn" data-target="prompt-ata90s">Copiar prompt</button>
+        </div>
+        <div class="prompt-scroll" id="scroll-ata90s">
+          <pre id="prompt-ata90s"># ATA EM 90 SEGUNDOS — PROMPT UNIVERSAL
+
+&gt; ⚙️ Como usar — este é um prompt único que funciona em dois cenários:
+&gt;
+&gt; A) NO COPILOT DENTRO DO TEAMS (durante ou logo após a reunião):
+&gt;    O transcript já está no contexto do Copilot. Cole este prompt inteiro
+&gt;    normalmente e deixe a seção "TRANSCRIPT DA REUNIÃO" abaixo em branco —
+&gt;    o Copilot vai usar automaticamente o transcript da reunião atual.
+&gt;
+&gt; B) EM QUALQUER OUTRA IA (ChatGPT, Claude, Gemini, Copilot no navegador):
+&gt;    Cole este prompt inteiro E substitua "[COLE O TRANSCRIPT AQUI]" pelo
+&gt;    texto do transcript exportado da sua plataforma de reunião (Teams,
+&gt;    Google Meet, Zoom, Otter, Fireflies etc.).
+&gt;
+&gt; 🔒 Confidencialidade: transcript de reunião contém informação sensível
+&gt; (nomes, clientes, projetos, valores). Use a IA aprovada pela sua empresa.
+&gt; Em ferramentas públicas, anonimize antes de colar — substitua nomes de
+&gt; cliente e pessoas por rótulos ("Cliente A", "Pessoa 1"). Você reidentifica
+&gt; depois, na sua ata final.
+
+---
+
+Você vai gerar uma ATA ENXUTA a partir de um transcript de reunião.
+Não é resumo narrativo. É registro executivo, para quem não estava
+na sala tomar decisão em 90 segundos.
+
+## FORMATO DA ATA — 4 SEÇÕES, NADA A MAIS
+
+### 1. Cabeçalho
+- Reunião: [título curto — 5 a 8 palavras]
+- Data / Horário: [do transcript; se ausente, escrever "não informado"]
+- Participantes: [nome + cargo/área quando o transcript trouxer]
+
+### 2. Decisões
+Bullets. Cada bullet começa com um verbo no passado ou no infinitivo.
+Só o que ficou DECIDIDO — não o que foi discutido. Máximo 5 bullets.
+
+### 3. Ações
+Tabela: Ação | Responsável | Prazo | Status
+- Uma linha por ação concreta.
+- Regra de responsável (ver detalhe na Regra 3 abaixo).
+- Prazo em uma das categorias: "esta semana" / "próxima reunião" /
+  "data específica se citada" / "a definir". Não escrever "a definir"
+  por padrão — só quando o transcript realmente não indicou nada.
+
+### 4. Riscos e pontos abertos
+Bullets curtos. Cada um em UMA linha.
+Inclui aqui: dependências não resolvidas, decisões adiadas, pontos que
+precisam de confirmação externa. Máximo 5 bullets. Omita a seção se
+não houver nada relevante.
+
+---
+
+## REGRAS OBRIGATÓRIAS
+
+1. NÃO NARRE A REUNIÃO.
+Proibido: "foi discutido", "foi reforçado", "o participante mencionou",
+"a equipe alinhou". A ata registra RESULTADO, não processo. Se você
+começou uma frase com "foi", reescreva.
+
+2. NÃO REPITA.
+Se um tema entrou nas Ações, não repita nas Decisões. Se está nas
+Decisões, não volte a aparecer nos Riscos. Cada informação vive em
+UMA seção só.
+
+3. RESPONSÁVEL DE AÇÃO — regra em três níveis:
+   (a) ATRIBUIR quando a pessoa explicitamente aceitou, se ofereceu
+       ou foi designada para a ação no transcript. Frases como
+       "eu faço", "posso ajudar com X", "eu fico com Y",
+       "fulano, você toca isso" — atribua.
+   (b) ATRIBUIR quando quem está conduzindo a reunião sintetiza a
+       ação em primeira pessoa ("a gente vai recuperar", "a gente
+       atualiza o cronograma") — atribua a quem sintetizou.
+   (c) DEIXAR "a definir" apenas quando nenhuma das duas situações
+       acima ocorreu: ninguém aceitou, ninguém se ofereceu, ninguém
+       sintetizou como sua. Nesse caso, "a definir" é o correto.
+   Nunca deduzir responsável só porque a pessoa "falou sobre o tema".
+   Se a pessoa é "[não identificado]" no transcript, ela NUNCA vira
+   responsável — a ação fica "a definir" mesmo que ela tenha se
+   oferecido.
+
+4. NÃO INVENTE.
+   - Não invente prazos, valores, nomes de sistemas, códigos de projeto.
+   - Se um participante não foi identificado no transcript, liste como
+     "[não identificado]" (ver Regra 3 sobre responsabilidade).
+   - Se algo importante ficou ambíguo no transcript, liste em "Riscos e
+     pontos abertos" com a frase "Ponto ambíguo no transcript:
+     [descrição]" — não tente resolver por você.
+
+5. CONCISÃO DURA.
+   - Bullets: máximo 2 linhas.
+   - Nada de subtítulos dentro das seções (sem 2.1, 2.2, 3.1).
+   - Nada de "Observações Finais", "Considerações", "Notas Adicionais"
+     ou qualquer seção decorativa fora das 4 acima.
+   - Se a ata ficou com mais de 1 página, você não seguiu as regras — refaça.
+
+6. IDIOMA E FORMATO.
+Português do Brasil. Datas no fuso do transcript (ou informado pelo
+usuário). Sem emojis. Sem frases de abertura ("Segue a ata abaixo...").
+Comece direto pelo Cabeçalho.
+
+---
+
+## TRANSCRIPT DA REUNIÃO
+
+[COLE O TRANSCRIPT AQUI]
+
+---
+
+## INFORMAÇÕES COMPLEMENTARES (OPCIONAL)
+
+Preencha só o que o transcript não trouxer e você quiser corrigir:
+
+- Título da reunião (se preferir sobrescrever o inferido):
+- Data / horário / fuso:
+- Participantes ausentes no transcript:
+- Contexto que ajuda a interpretar (projeto, cliente, fase):</pre>
+        </div>
+        <button class="expand-toggle" data-scroll="scroll-ata90s">Ver prompt completo ▾</button>
+      </div>
+    </div>
+  </details>
+
   <!-- ============ EM BREVE ============ -->
   <div class="soon">
-    <span class="t-num">03</span>
+    <span class="t-num">04</span>
     <p><b>Próxima trilha em breve</b>Siga no Instagram para saber quando sair.</p>
   </div>
 
