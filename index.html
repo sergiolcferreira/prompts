@@ -243,7 +243,7 @@ h1.title .hl{color:var(--gold);}
 .lightbox.open{display:flex;}
 .lightbox img{max-width:100%;max-height:92vh;border-radius:10px;
   border:1px solid var(--gold-dim);box-shadow:0 20px 60px rgba(0,0,0,.6);}
-.lightbox .lb-close{
+.lightbox .lb-close{z-index:2;padding:6px 12px;
   position:absolute;top:18px;right:24px;
   font-family:'IBM Plex Mono',monospace;font-size:26px;color:var(--text);
   cursor:pointer;line-height:1;
@@ -1527,6 +1527,7 @@ Se qualquer verificação falhar:
   </footer>
 </div>
 
+<div class="lightbox" id="lightbox"><span class="lb-close">✕</span><img id="lb-img" src="" alt="Exemplo ampliado"></div>
 <script>
 // copiar prompt
 document.querySelectorAll('.copy-btn').forEach(btn=>{
@@ -1556,19 +1557,26 @@ document.querySelectorAll('.expand-toggle').forEach(btn=>{
   });
 });
 
-document.querySelectorAll('.example-grid img').forEach(function(img){
-  img.addEventListener('click', function(){
-    var lb=document.getElementById('lightbox');
-    document.getElementById('lb-img').src=img.src;
-    lb.classList.add('open');
-  });
-});
 (function(){
   var lb=document.getElementById('lightbox');
-  if(lb){ lb.addEventListener('click', function(){ lb.classList.remove('open'); }); }
+  var lbImg=document.getElementById('lb-img');
+  if(!lb) return;
+  function openLb(src){ lbImg.src=src; lb.classList.add('open'); }
+  function closeLb(){ lb.classList.remove('open'); }
+  document.querySelectorAll('.example-grid img').forEach(function(img){
+    img.addEventListener('click', function(){ openLb(img.src); });
+  });
+  // click anywhere on the overlay closes, EXCEPT clicking the image itself
+  lb.addEventListener('click', function(e){
+    if(e.target === lbImg) return;
+    closeLb();
+  });
+  // Esc key closes
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeLb();
+  });
 })();
 </script>
 
-<div class="lightbox" id="lightbox"><span class="lb-close">✕</span><img id="lb-img" src="" alt="Exemplo ampliado"></div>
 </body>
 </html>
