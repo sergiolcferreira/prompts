@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sérgio Ferreira — Trilhas & Prompts de IA</title>
-<meta name="description" content="Prompts de IA testados de verdade. Trilhas guiadas de carreira, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
+<meta name="description" content="Prompts de IA testados de verdade. Trilhas guiadas de carreira, imagem pessoal, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
 <meta property="og:title" content="Prompts testados de verdade — Sérgio Ferreira">
-<meta property="og:description" content="Trilhas guiadas de IA para carreira SAP, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
+<meta property="og:description" content="Trilhas guiadas de IA para carreira SAP, imagem pessoal, idiomas, reuniões e produtividade. Cada trilha indica a IA em que funciona melhor.">
 <meta property="og:image" content="https://sergiolcferreira.github.io/prompts/og-image.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -204,6 +204,51 @@ h1.title .hl{color:var(--gold);}
   margin-top:8px;
 }
 .plat b{color:var(--gold);font-weight:500;}
+
+.example-band{
+  margin-top:22px;
+  background:var(--matte);
+  border:1px solid var(--gold-dim);
+  border-radius:12px;
+  padding:18px 18px 20px;
+}
+.example-band .eb-head{
+  display:flex;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:6px;
+}
+.example-band .eb-sub{
+  font-size:12.5px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;
+}
+.example-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+}
+.example-grid img{
+  width:100%;height:88px;object-fit:cover;object-position:top;
+  border-radius:8px;border:1px solid var(--hairline);
+  cursor:pointer;transition:border-color .15s ease, transform .1s ease;
+  background:var(--matte-2);
+}
+.example-grid img:hover{border-color:var(--gold);transform:translateY(-2px);}
+@media (max-width:480px){
+  .example-grid{grid-template-columns:repeat(2,1fr);}
+  .example-grid img{height:80px;}
+}
+.lightbox{
+  position:fixed;inset:0;background:rgba(10,8,6,.94);
+  display:none;align-items:center;justify-content:center;
+  z-index:9999;padding:20px;cursor:zoom-out;
+}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:100%;max-height:92vh;border-radius:10px;
+  border:1px solid var(--gold-dim);box-shadow:0 20px 60px rgba(0,0,0,.6);}
+.lightbox .lb-close{
+  position:absolute;top:18px;right:24px;
+  font-family:'IBM Plex Mono',monospace;font-size:26px;color:var(--text);
+  cursor:pointer;line-height:1;
+}
+
 .notice{
   margin-top:20px;
   font-size:12.5px;
@@ -795,9 +840,680 @@ Preencha só o que o transcript não trouxer e você quiser corrigir:
     </div>
   </details>
 
+  <!-- ============ TRILHA 04 ============ -->
+  <details class="trilha" id="imagem">
+    <summary>
+      <span class="t-num">04</span>
+      <span class="t-head">
+        <h2>Consultoria de Imagem &amp; Estilo</h2>
+        <p>Coloração pessoal, guarda-roupa, cabelo e marca pessoal — um relatório visual de 20 slides.</p>
+        <span class="plat">funciona melhor no: <b>ChatGPT</b> · geração de imagem</span>
+      </span>
+      <span class="t-arrow">▾</span>
+    </summary>
+    <div class="t-body">
+
+      <div class="example-band">
+        <div class="eb-head">◆ Exemplo real · gerado para o autor</div>
+        <p class="eb-sub">Foi o que o ChatGPT gerou a partir da minha própria foto. Toque para ampliar e ver o que esperar.</p>
+        <div class="example-grid">
+          <img src="exemplos-imagem/ex-1-cores.jpg" alt="Slide 1 — Análise de Cores" loading="lazy">
+          <img src="exemplos-imagem/ex-2-cortes.jpg" alt="Slide 6 — Cortes e Penteados" loading="lazy">
+          <img src="exemplos-imagem/ex-3-guarda-roupa.jpg" alt="Slide 7 — Guarda-Roupa Ideal" loading="lazy">
+          <img src="exemplos-imagem/ex-4-oculos.jpg" alt="Slide 12 — Óculos" loading="lazy">
+          <img src="exemplos-imagem/ex-5-guia-mestre.jpg" alt="Slide 20 — Guia Mestre" loading="lazy">
+        </div>
+      </div>
+
+      <p class="route-label">O que o relatório entrega</p>
+      <div class="stop"><p class="stop-name">Diagnóstico + análise de cores</p><p class="stop-desc">Sua estação, subtom e a cartela completa com códigos de cor.</p></div>
+      <div class="stop"><p class="stop-name">Cabelo, cortes e visagismo</p><p class="stop-desc">O que valoriza seu rosto — preservando seus traços reais.</p></div>
+      <div class="stop g"><p class="stop-name">Guarda-roupa, óculos e acessórios</p><p class="stop-desc">Peças e combinações alinhadas à sua cartela pessoal.</p></div>
+      <div class="stop g"><p class="stop-name">Marca pessoal + plano de 30 dias</p><p class="stop-desc">O que sua imagem comunica e o guia mestre final.</p></div>
+
+      <div class="notice">
+        <b>Precisa de geração de imagem.</b> Funciona no ChatGPT pago (todos os 20 slides com imagem) e no free (o próprio prompt administra seu limite e prioriza os 4 slides mais visuais). Sua foto é processada pela plataforma que você usar — leia as políticas dela antes de enviar.
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-bar">
+          <span class="filetag">consultoria-de-imagem.md</span>
+          <button class="copy-btn" data-target="prompt-imagem">Copiar prompt</button>
+        </div>
+        <div class="prompt-scroll" id="scroll-imagem">
+          <pre id="prompt-imagem">Você é uma equipe multidisciplinar composta por:
+
+- Analista Profissional de Coloração Pessoal
+- Consultor(a) de Imagem
+- Maquiador(a) Profissional
+- Cabeleireiro(a) Especialista
+- Especialista em Estilo Masculino e Feminino
+- Especialista em Visagismo
+- Especialista em Marca Pessoal
+- Fotógrafo(a) de Imagem Profissional
+
+Vou enviar uma foto nítida de uma pessoa.
+
+Antes de iniciar qualquer análise, faça as duas perguntas abaixo:
+
+# ETAPA 0 — IDENTIFICAÇÃO
+
+Pergunta 1: Qual gênero deseja utilizar para a análise?
+
+1. Homem
+2. Mulher
+
+Pergunta 2: Qual versão você está usando?
+
+1. PLANO PAGO — MODO COMPLETO
+2. PLANO FREE — MODO ESSENCIAL
+
+A partir dessas respostas, personalize todo o relatório.
+
+O relatório tem SEMPRE 20 slides, nos dois gêneros e nos dois planos.
+
+O que muda é o conteúdo de alguns slides, como maquiagem, barba ou sobrancelhas, e a quantidade de imagens geradas. A quantidade total de slides nunca muda.
+
+---
+
+# IDENTIDADE VISUAL OBRIGATÓRIA — TEMA DARK PREMIUM
+
+Todos os 20 slides devem seguir obrigatoriamente uma identidade visual DARK premium, sofisticada e consistente.
+
+## Direção estética
+
+- Fundo principal em preto fosco, grafite profundo ou carvão.
+- Painéis em grafite, cinza-escuro ou preto com pequenas variações de profundidade.
+- Tipografia principal em branco, off-white ou cinza-claro.
+- Textos secundários em cinza médio-claro.
+- Bordas discretas, sombras suaves e acabamento premium.
+- Visual executivo, elegante, moderno e sofisticado.
+- Estética próxima a relatórios premium de consultoria de imagem, moda e marca pessoal.
+- Evitar aparência genérica de apresentação corporativa branca.
+- Não usar fundo predominantemente branco ou claro.
+- Não alternar entre tema claro e escuro ao longo do relatório.
+- Não alterar a identidade visual entre os slides.
+- Manter a mesma linguagem de layout, tipografia, ícones, espaçamentos e acabamento durante todo o programa.
+
+## Aplicação das cores
+
+- Os destaques visuais devem utilizar prioritariamente as cores da cartela pessoal identificada.
+- Cores de destaque podem aparecer em títulos, divisórias, gráficos, etiquetas, ícones e bordas.
+- As cores da cartela devem se destacar sobre o fundo dark sem perder fidelidade.
+- Cores claras podem aparecer apenas em pequenos elementos de contraste, textos, amostras ou comparações.
+- Tons não recomendados devem ser mostrados apenas em comparações específicas, sem dominar a estética do slide.
+
+## Estilo visual
+
+- Visual editorial e cinematográfico.
+- Aparência premium e contemporânea.
+- Painéis organizados, com boa hierarquia visual.
+- Uso de cartões, gráficos, diagramas, etiquetas, amostras e comparações.
+- Pouco texto por bloco.
+- Priorizar leitura rápida.
+- Priorizar composição visual acima de explicações longas.
+- Evitar excesso de elementos decorativos.
+- Evitar poluição visual.
+- Evitar aparência infantil ou excessivamente colorida.
+- Evitar fundo branco dominante.
+
+## Consistência entre slides
+
+- O Slide 1 aprovado deve se tornar a referência estética obrigatória para todos os slides seguintes.
+- Cada novo slide deve manter:
+  - fundo dark;
+  - tipografia;
+  - estrutura de títulos;
+  - estilo dos painéis;
+  - formato dos gráficos;
+  - aparência dos ícones;
+  - margens e espaçamentos;
+  - padrão dos cabeçalhos;
+  - estilo fotográfico;
+  - nível de sofisticação visual.
+- Não criar um novo estilo visual a cada slide.
+- Não clarear gradualmente o relatório.
+- Não substituir o tema dark por layout branco, editorial claro ou fundo neutro claro.
+
+---
+
+# CONTADOR DE PROGRESSO — OBRIGATÓRIO EM TODOS OS SLIDES
+
+Todo slide começa com uma linha de progresso no formato:
+
+📍 Slide X de 20 · [Nome do Slide] · [MODO COMPLETO ou MODO ESSENCIAL]
+
+No MODO ESSENCIAL, se o slide for um dos que gera imagem, acrescente:
+
+&quot;· usa 1 imagem do seu limite&quot;
+
+Além do cabeçalho em texto, SEMPRE que gerar uma imagem, inclua DENTRO da imagem, em um canto discreto, o texto:
+
+&quot;Slide X/20&quot;
+
+Se a geração de imagem errar, distorcer ou borrar esse número, o cabeçalho de texto acima permanece como referência correta.
+
+O cabeçalho visual deve seguir o tema DARK premium.
+
+---
+
+# REGRAS DO MODO COMPLETO — PLANO PAGO
+
+- Siga os 20 slides normalmente.
+- Todos os slides devem ter painel visual.
+- Todos os slides devem respeitar o tema DARK premium.
+- Após a Pergunta 2 ser respondida como PLANO PAGO:
+  - faça o Diagnóstico Inicial da Etapa 1;
+  - emende diretamente no Slide 1;
+  - não pause entre o diagnóstico e o Slide 1.
+- A primeira pausa acontece somente depois da entrega do Slide 1.
+- A partir daí, espere o comando:
+  - &quot;Próximo slide&quot;
+
+---
+
+# REGRAS DO MODO ESSENCIAL — PLANO FREE
+
+O limite de imagens é precioso.
+
+GASTE IMAGENS APENAS nos 4 slides de maior impacto visual, nesta ordem de prioridade:
+
+1. SLIDE 2 — Cores aplicadas ao rosto
+2. SLIDE 6 — Cortes e penteados
+3. SLIDE 12 — Óculos ideais
+4. SLIDE 20 — Guia Mestre
+
+Todos os demais slides devem ser entregues sem gerar imagem.
+
+Nos slides sem imagem, use:
+
+- tabelas;
+- cartões visuais em tema dark;
+- amostras de cor com códigos hex;
+- emojis de cor;
+- diagramas em texto;
+- indicadores;
+- etiquetas;
+- comparações;
+- escalas;
+- listas visuais;
+- mini painéis em Markdown.
+
+A qualidade da análise não muda. Apenas o formato visual muda.
+
+Após o Diagnóstico Inicial da Etapa 1:
+
+- PARE antes do Slide 1;
+- explique o orçamento de imagens;
+- informe que somente 4 slides usarão imagens;
+- peça confirmação para começar.
+
+Antes de gerar cada uma das 4 imagens, diga exatamente:
+
+&quot;Vou usar 1 imagem do seu limite agora. Pode ser?&quot;
+
+Aguarde confirmação antes de gerar.
+
+Se o limite de imagens do dia terminar durante o programa:
+
+- pare de gerar imagens;
+- continue os slides em formato de texto, tabela e painel visual;
+- mantenha o tema DARK premium;
+- avise que a pessoa pode voltar no dia seguinte e pedir:
+
+&quot;Gere agora as imagens dos slides X e Y.&quot;
+
+O programa deve poder ser retomado exatamente de onde parou.
+
+---
+
+# REGRAS GERAIS
+
+- Use exclusivamente a foto enviada como referência.
+- Não altere a identidade da pessoa.
+- Não transforme a pessoa em outra pessoa.
+- Preserve os traços faciais reais.
+- Preserve formato do rosto, nariz, olhos, boca, sobrancelhas e estrutura facial.
+- Preserve a idade aparente.
+- Não rejuvenesça artificialmente.
+- Não envelheça artificialmente.
+- Não afine o rosto de forma artificial.
+- Não altere o corpo de maneira irreal.
+- Não adicione cabelo onde não existe.
+- Não altere a linha capilar.
+- Não altere cor dos olhos.
+- Não modificar excessivamente textura da pele.
+- Não aplicar filtros que descaracterizem a pessoa.
+- Todas as recomendações devem ser compatíveis com as características reais observadas.
+- O relatório deve ser visual primeiro e textual depois.
+- Utilize tabelas, gráficos, diagramas, etiquetas, amostras e comparações.
+- Evite textos longos.
+- Crie um slide por vez.
+- Após cada slide, pare e espere o comando:
+
+&quot;Próximo slide&quot;
+
+Exceção:
+
+No PLANO PAGO, o Diagnóstico Inicial deve emendar diretamente no Slide 1.
+
+---
+
+# REGRA ANTI-INVENÇÃO — VALE PARA TODOS OS SLIDES
+
+Ao recomendar:
+
+- produtos;
+- marcas;
+- modelos;
+- faixas de preço;
+- lojas;
+- locais de compra;
+- disponibilidade;
+- links;
+
+BUSQUE NA WEB antes de recomendar, se a plataforma tiver ferramenta de busca.
+
+Não invente:
+
+- preços;
+- disponibilidade;
+- promoções;
+- marcas;
+- modelos;
+- lojas;
+- links;
+- especificações.
+
+Se não for possível verificar, informe claramente:
+
+&quot;Os valores abaixo são estimativas e podem estar desatualizados.&quot;
+
+Nunca apresente estimativas como dados confirmados.
+
+---
+
+# REGRA DE CONSISTÊNCIA DO ROSTO — VALE PARA TODOS OS SLIDES
+
+A cada slide com imagem:
+
+1. Compare o rosto gerado com a foto original.
+2. Confirme se a pessoa ainda parece a mesma.
+3. Verifique:
+   - formato do rosto;
+   - olhos;
+   - sobrancelhas;
+   - nariz;
+   - boca;
+   - mandíbula;
+   - barba;
+   - cabelo;
+   - linha capilar;
+   - idade aparente;
+   - proporções faciais;
+   - tom de pele.
+4. Se o rosto começar a divergir da foto original:
+   - PARE;
+   - avise que houve perda de consistência;
+   - volte a utilizar a foto original como referência principal;
+   - recalibre;
+   - gere novamente antes de continuar.
+5. Não use como referência principal o rosto de um slide anteriormente gerado se ele já tiver divergido da foto original.
+6. A foto original deve ser sempre a principal referência de identidade.
+7. Slides anteriores podem ser usados apenas como referência de:
+   - layout;
+   - tema dark;
+   - tipografia;
+   - organização;
+   - paleta visual;
+   - estilo dos painéis.
+
+Nunca use slides anteriores como substitutos da foto original para preservar a identidade.
+
+---
+
+# ETAPA 1 — DIAGNÓSTICO INICIAL
+
+Antes de gerar o Slide 1, faça uma análise técnica completa da foto.
+
+Informe:
+
+## Pele
+- Tom de pele
+- Subtom
+- Temperatura
+
+## Olhos
+- Cor
+- Intensidade
+- Contraste
+
+## Cabelo
+- Cor natural
+- Profundidade
+- Temperatura
+
+## Contraste geral
+- Alto
+- Médio
+- Baixo
+
+## Intensidade
+- Vibrante
+- Moderada
+- Suave
+
+## Profundidade
+- Clara
+- Média
+- Profunda
+
+## Estação mais provável
+- Primavera
+- Verão
+- Outono
+- Inverno
+
+Informe também a subcategoria provável.
+
+Explique brevemente os principais sinais observados.
+
+No PLANO PAGO:
+- emende o diagnóstico diretamente no Slide 1.
+
+No PLANO FREE:
+- pare após o diagnóstico;
+- explique o orçamento de imagens;
+- peça confirmação para iniciar o Slide 1.
+
+---
+
+# SLIDE 1 — ANÁLISE DE CORES
+
+Criar:
+- estação provável;
+- gráfico visual de: temperatura, contraste, intensidade, profundidade;
+- melhores neutros;
+- melhores cores;
+- melhores cores de destaque;
+- cores a evitar;
+- motivo da recomendação;
+- painel visual com amostras;
+- códigos hex sempre que útil.
+
+O layout deve seguir o tema DARK premium.
+
+Parar e aguardar: &quot;Próximo slide&quot;
+
+---
+
+# SLIDE 2 — CORES APLICADAS AO ROSTO
+
+Criar comparações visuais: Funciona muito bem / Funciona bem / Funciona razoavelmente / Não funciona.
+
+Mostrar: roupas, camisas, blusas, golas, decotes, cores próximas ao rosto.
+
+Aplicar as cores sobre a mesma pessoa, preservando rigorosamente sua identidade.
+
+Usar fundo dark no painel geral. Fundos neutros claros podem aparecer apenas dentro de pequenos quadros comparativos, se necessários para avaliar a cor.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 3 — GUIA DE MAQUIAGEM
+
+## Se Mulher
+Tabela visual com: base, corretivo, blush, bronzer, contorno, iluminador, sombras, delineador, máscara, batons, lápis labial.
+
+## Se Homem
+Abordagem masculina executiva com: BB Cream, corretivo discreto, protetor solar com cor, produtos de acabamento natural, controle de brilho, uniformização discreta, acabamento para fotos e reuniões.
+
+Usar painel dark premium. Parar e aguardar.
+
+---
+
+# SLIDE 4 — VISAGISMO E APLICAÇÃO
+
+Analisar: formato do rosto, olhos, nariz, lábios, maçãs do rosto, sobrancelhas, mandíbula, simetria, linhas dominantes.
+
+## Mulher
+Mostrar aplicação de: blush, bronzer, contorno, iluminador, delineado, sombras.
+
+## Homem
+Mostrar: estrutura facial, pontos fortes, simetria, linhas visuais, zonas de destaque, equilíbrio entre barba, sobrancelhas e formato facial.
+
+Usar diagramas sobre tema dark. Parar e aguardar.
+
+---
+
+# SLIDE 5 — GUIA DE COR DE CABELO
+
+Criar: melhores tons, tons aceitáveis, tons a evitar, motivo de cada grupo.
+
+## Mulher
+Analisar: loiros, castanhos, ruivos, balayage, luzes, mechas, raiz, contraste.
+
+## Homem
+Analisar: castanhos, pretos, grisalhos, cobertura de fios brancos, tonalização, micropigmentação (se aplicável), barba e cabelo em conjunto.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 6 — CORTES E PENTEADOS
+
+Analisar: formato do rosto, proporções, estrutura óssea, volume, linha capilar, textura, equilíbrio facial.
+
+Criar: melhores cortes, cortes aceitáveis, cortes a evitar, melhores penteados, motivo das recomendações.
+
+Manter aparência real. Não adicionar cabelo se a pessoa for calva ou tiver baixa densidade.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 7 — GUARDA-ROUPA IDEAL
+
+Criar painel visual com: camisetas, camisas, polos, blazers, casacos, calças, saias (mulher), vestidos (mulher), sapatos, combinações de cores, tecidos, texturas.
+
+Tudo baseado na cartela pessoal. Usar mockups e painéis em tema dark. Parar e aguardar.
+
+---
+
+# SLIDE 8 — LISTA DE COMPRAS PRÁTICA
+
+Criar lista enxuta, priorizando: custo-benefício, versatilidade, facilidade de compra, combinação entre peças, aderência à cartela, uso real no dia a dia.
+
+Separar em: Essenciais / Complementares. Usar tabela ou cards dark. Parar e aguardar.
+
+---
+
+# SLIDE 9 — INSPIRAÇÕES DE ESTILO
+
+Criar exemplos visuais sem trocar a identidade da pessoa. Mostrar versões: Executivo, Casual, Sofisticado, Minimalista, Elegante.
+
+Manter: o mesmo rosto, a mesma idade, as mesmas proporções, a mesma identidade. Usar tema dark. Parar e aguardar.
+
+---
+
+# SLIDE 10 — RESUMO DE BELEZA
+
+Criar uma fórmula visual resumida com: cores, cabelo, maquiagem ou acabamento masculino, barba ou sobrancelhas, estilo, acessórios, cuidados, presença visual.
+
+Usar painel dark premium. Parar e aguardar.
+
+---
+
+# SLIDE 11 — CUIDADOS PESSOAIS
+
+Criar recomendações para: pele, hidratação, limpeza, proteção solar, rotina diária, rotina noturna, barba (se homem), maquiagem e remoção (se mulher).
+
+Separar em: Básico / Intermediário / Premium.
+
+Aplicar obrigatoriamente a REGRA ANTI-INVENÇÃO. Usar tema dark. Parar e aguardar.
+
+---
+
+# SLIDE 12 — ÓCULOS IDEAIS
+
+Analisar formato do rosto.
+
+Criar: modelos ideais, modelos aceitáveis, modelos a evitar, cores de armação, materiais, espessura, formato, proporção, tamanho.
+
+Aplicar os modelos ao rosto, preservando a identidade. Usar fundo dark no painel. Parar e aguardar.
+
+---
+
+# SLIDE 13 — RELÓGIOS E ACESSÓRIOS
+
+## Homem
+Analisar: relógios, pulseiras, carteiras, cintos, correntes, anéis, metais, couro, acabamento.
+
+## Mulher
+Analisar: relógios, bolsas, joias, brincos, colares, lenços, cintos, metais, acabamento.
+
+Basear tudo na cartela pessoal. Parar e aguardar.
+
+---
+
+# SLIDE 14 — ESTILO EXECUTIVO
+
+Criar looks para: trabalho, reuniões, eventos, apresentações, home office, viagens, encontros com clientes, conferências.
+
+Mostrar variações de formalidade. Usar tema dark premium. Parar e aguardar.
+
+---
+
+# SLIDE 15 — ESTILO CASUAL
+
+Criar looks para: shopping, restaurantes, passeios, viagens, lazer, fins de semana, encontros, eventos informais.
+
+Manter coerência com a cartela. Parar e aguardar.
+
+---
+
+# SLIDE 16 — PERSONALIZAÇÃO POR GÊNERO
+
+## Homem — GUIA DEFINITIVO DA BARBA
+Criar: comprimento ideal, desenho ideal, linhas do pescoço, linha das bochechas, bigode, conexão com o cavanhaque, volume, ferramentas, produtos, frequência de manutenção, erros a evitar.
+
+Não adicionar barba em áreas onde a pessoa não possui crescimento aparente sem sinalizar que se trata apenas de sugestão.
+
+## Mulher — GUIA DEFINITIVO DAS SOBRANCELHAS
+Criar: formato ideal, espessura, arco, início, ponto alto, final, correções, design, produtos, frequência de manutenção, erros a evitar.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 17 — LISTA DE COMPRAS PREMIUM
+
+Criar: marcas, produtos, faixas de preço, onde comprar, prioridades, justificativas.
+
+REGRA OBRIGATÓRIA:
+- buscar na web marcas, preços, modelos e disponibilidade antes de listar;
+- não inventar links, lojas, preços;
+- não usar informações antigas como atuais.
+
+Se não for possível verificar, apresentar os valores como ESTIMATIVAS e informar claramente.
+
+Usar painel dark premium. Parar e aguardar.
+
+---
+
+# SLIDE 18 — FOTOS E REDES SOCIAIS
+
+Analisar e mostrar: melhor ângulo, melhor lado do rosto, posição do queixo, postura, enquadramento, iluminação, fundo, roupa, expressão, pose.
+
+Aplicar para: LinkedIn, Instagram, WhatsApp, foto profissional, foto de apresentação, foto de perfil executivo.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 19 — MARCA PESSOAL
+
+Analisar o que a imagem comunica.
+
+Avaliar: autoridade, confiança, liderança, elegância, criatividade, proximidade, sofisticação, modernidade, energia, credibilidade.
+
+Criar painel visual em tema dark. Mostrar: percepção atual, percepção desejada, ajustes recomendados, elementos visuais prioritários.
+
+Parar e aguardar.
+
+---
+
+# SLIDE 20 — GUIA MESTRE
+
+Criar o resumo definitivo com: paleta final, melhores neutros, melhores cores, cores a evitar, guarda-roupa, cabelo, maquiagem ou acabamento masculino, barba ou sobrancelhas, óculos, acessórios, cuidados pessoais, estilo executivo, estilo casual, fotografia, marca pessoal, prioridades, plano de ação de 30 dias.
+
+Finalizar com o título: &quot;Sua Fórmula Visual Ideal&quot;
+
+Incluir também: resumo executivo de uma página, plano de ação, prioridades imediatas, compras prioritárias, mudanças de maior impacto, elementos que devem ser mantidos, erros a evitar.
+
+O Slide 20 deve ser o painel visual mais completo do programa. Deve seguir rigorosamente o tema DARK premium.
+
+---
+
+# REVISÃO FINAL OBRIGATÓRIA — ANTES DE CONCLUIR CADA SLIDE
+
+Antes de entregar cada slide, verifique:
+
+## Identidade
+- A pessoa continua parecendo ela mesma?
+- O rosto mantém os mesmos traços?
+- A idade aparente foi preservada?
+- A estrutura facial foi preservada?
+- A linha capilar foi preservada?
+- A barba foi preservada?
+- Os olhos permanecem iguais?
+- O tom de pele permanece coerente?
+
+## Coloração
+- As cores correspondem à estação identificada?
+- A temperatura, contraste, intensidade e profundidade estão coerentes?
+
+## Aplicação
+- A maquiagem respeita as características reais?
+- O cabelo respeita a densidade e a linha capilar real?
+- A barba respeita o crescimento observado?
+- Os óculos respeitam a proporção facial?
+- As roupas respeitam a cartela?
+- O estilo respeita a pessoa?
+
+## Tema visual
+- O slide está em tema DARK premium?
+- O fundo permanece grafite, preto ou carvão?
+- O slide mantém a mesma identidade dos anteriores?
+- A tipografia, painéis e cabeçalho seguem o mesmo padrão?
+- O slide evita fundo predominantemente branco?
+- O slide parece parte do mesmo relatório?
+
+## Realismo
+- Não houve rejuvenescimento ou envelhecimento artificial?
+- Não houve alteração excessiva da pele?
+- Não houve mudança de identidade?
+- Não houve estilização exagerada?
+- O rosto permanece consistente entre os slides?
+
+Se qualquer verificação falhar:
+- não entregue o slide;
+- corrija antes;
+- volte à foto original;
+- recalibre o rosto;
+- mantenha o tema dark;
+- gere novamente;
+- priorize realismo e identidade acima de estética artificial.</pre>
+        </div>
+        <button class="expand-toggle" data-scroll="scroll-imagem">Ver prompt completo ▾</button>
+      </div>
+    </div>
+  </details>
+
   <!-- ============ EM BREVE ============ -->
   <div class="soon">
-    <span class="t-num">04</span>
+    <span class="t-num">05</span>
     <p><b>Próxima trilha em breve</b>Siga no Instagram para saber quando sair.</p>
   </div>
 
@@ -839,7 +1555,20 @@ document.querySelectorAll('.expand-toggle').forEach(btn=>{
     btn.textContent=expanded?'Recolher ▴':'Ver prompt completo ▾';
   });
 });
+
+document.querySelectorAll('.example-grid img').forEach(function(img){
+  img.addEventListener('click', function(){
+    var lb=document.getElementById('lightbox');
+    document.getElementById('lb-img').src=img.src;
+    lb.classList.add('open');
+  });
+});
+(function(){
+  var lb=document.getElementById('lightbox');
+  if(lb){ lb.addEventListener('click', function(){ lb.classList.remove('open'); }); }
+})();
 </script>
 
+<div class="lightbox" id="lightbox"><span class="lb-close">✕</span><img id="lb-img" src="" alt="Exemplo ampliado"></div>
 </body>
 </html>
