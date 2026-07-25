@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranking Eng. Dados Databricks — 30 candidatos (exemplo fictício)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/dist/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{
+    --bg:#16130F;--surface:#1E1A15;--surface-alt:#262019;
+    --text:#EDE6DA;--text-sec:#A69B8A;--text-mut:#7A7164;
+    --border:#3A3229;--accent:#D9A441;--accent-bg:#3a2c0f;
+    --warn:#D9A441;--warn-bg:#3a2c0f;--danger:#C2543A;--danger-bg:#3a1f16;
+    --ok:#7E8B5E;--ok-bg:#25301b;--radius:8px;--row-hi:#2E2820;
+  }
+  /* biblioteca é sempre dark — paleta única independente da preferência do SO */
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#16130F;--surface:#1E1A15;--surface-alt:#262019;
+    --text:#EDE6DA;--text-sec:#A69B8A;--text-mut:#7A7164;
+    --border:#3A3229;--accent:#D9A441;--accent-bg:#3a2c0f;
+    --warn:#D9A441;--warn-bg:#3a2c0f;--danger:#C2543A;--danger-bg:#3a1f16;
+    --ok:#7E8B5E;--ok-bg:#25301b;--row-hi:#2E2820;
+  }}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:2rem 1rem;}
+  .wrap{max-width:1120px;margin:0 auto;}
+  h1{font-size:22px;font-weight:500;margin:0 0 2px;}
+  h2{font-size:18px;font-weight:500;margin:0 0 2px;}
+  .sub{font-size:12.5px;color:var(--text-sec);margin:0 0 12px;}
+  .subhead{font-size:12px;color:var(--text-mut);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:1.25rem 0 2rem;}
+  .metric{background:var(--surface-alt);border-radius:var(--radius);padding:1rem;}
+  .metric .lbl{font-size:13px;color:var(--text-sec);margin-bottom:4px;}
+  .metric .val{font-size:24px;font-weight:500;}
+  .metric .hint{font-size:11px;color:var(--text-mut);}
+  section{margin-bottom:2.25rem;}
+  .controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:12px;
+    background:var(--surface-alt);border-radius:var(--radius);padding:10px 14px;}
+  .controls label{font-size:13px;color:var(--text-sec);}
+  input[type=number]{width:64px;padding:5px 8px;font-size:13px;border:0.5px solid var(--border);
+    border-radius:6px;background:var(--surface);color:var(--text);}
+  input[type=text]{padding:6px 10px;font-size:13px;border:0.5px solid var(--border);
+    border-radius:6px;background:var(--surface);color:var(--text);min-width:180px;}
+  select{padding:5px 8px;font-size:13px;border:0.5px solid var(--border);border-radius:6px;
+    background:var(--surface);color:var(--text);}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th,td{text-align:left;padding:7px 9px;border-bottom:0.5px solid var(--border);}
+  th{color:var(--text-sec);font-weight:500;cursor:pointer;user-select:none;white-space:nowrap;position:relative;}
+  th:hover{color:var(--text);}
+  th .arr{font-size:10px;color:var(--accent);margin-left:3px;}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr:hover td{background:var(--row-hi);}
+  .pill{font-size:10.5px;padding:2px 7px;border-radius:20px;display:inline-block;white-space:nowrap;}
+  .p-green{background:var(--ok-bg);color:var(--ok);}
+  .p-amber{background:var(--warn-bg);color:var(--warn);}
+  .p-red{background:var(--danger-bg);color:var(--danger);}
+  .p-gray{background:var(--surface-alt);color:var(--text-sec);border:0.5px solid var(--border);}
+  .flagcell{font-size:11px;color:var(--text-mut);}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;}
+  .chartbox{position:relative;width:100%;}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-sec);}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:10px;height:10px;border-radius:2px;display:inline-block;}
+  .mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;}
+  .mini{background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.15rem;}
+  .mini h3{font-size:14px;font-weight:500;margin:0 0 2px;display:flex;align-items:center;gap:7px;}
+  .mini .mdesc{font-size:11.5px;color:var(--text-mut);margin-bottom:10px;}
+  .mini .mctl{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .mini .mctl label{font-size:12px;color:var(--text-sec);}
+  .mlist{list-style:none;margin:0;padding:0;counter-reset:r;}
+  .mlist li{display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--border);font-size:12.5px;}
+  .mlist li:last-child{border-bottom:none;}
+  .mlist li::before{counter-increment:r;content:counter(r);font-size:11px;color:var(--text-mut);
+    width:16px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums;}
+  .mlist .mn{flex:1;color:var(--text);}
+  .mlist .mv{font-weight:500;font-variant-numeric:tabular-nums;color:var(--accent);white-space:nowrap;}
+  .mlist .mf{font-size:11px;color:var(--text-mut);}
+  .senq{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start;}
+  @media(max-width:720px){.senq{grid-template-columns:repeat(2,1fr);}}
+  .sencol{background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:0.9rem 1rem;}
+  .sencol.att{border-color:var(--warn);}
+  .sencol h3{font-size:14px;font-weight:500;margin:0 0 2px;display:flex;justify-content:space-between;align-items:baseline;}
+  .sencol h3 .cnt{font-size:12px;color:var(--text-mut);font-weight:400;}
+  .sencol .cdesc{font-size:11px;color:var(--text-mut);margin-bottom:10px;}
+  .sencol .mctl{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .sencol .mctl label{font-size:12px;color:var(--text-sec);}
+  .cvcard{padding:8px 0;border-bottom:0.5px solid var(--border);}
+  .cvcard:last-child{border-bottom:none;}
+  .cvcard .cn{font-size:13px;font-weight:500;}
+  .cvcard .cmeta{font-size:11.5px;color:var(--text-sec);display:flex;gap:8px;flex-wrap:wrap;margin-top:1px;}
+  .cvcard .cflag{font-size:11px;color:var(--warn);margin-top:3px;display:flex;gap:4px;align-items:flex-start;}
+  .cvcard .cflag::before{content:"⚑";font-size:10px;}
+  .contact{display:flex;gap:8px;align-items:center;}
+  .cbtn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;
+    border-radius:6px;border:0.5px solid var(--border);background:var(--surface);cursor:pointer;
+    text-decoration:none;font-size:15px;line-height:1;transition:background .12s;}
+  .cbtn:hover{background:var(--row-hi);}
+  .cbtn.wa{color:#0f6e56;}
+  .cbtn.em{color:var(--accent);}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);
+    color:var(--bg);font-size:13px;padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;
+    transition:opacity .2s;z-index:50;}
+  .toast.show{opacity:0.95;}
+  .bar-row{margin-bottom:9px;}
+  .bar-row .top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px;}
+  .bar-track{height:7px;background:var(--surface-alt);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;}
+  .count{font-size:12px;color:var(--text-mut);margin-left:auto;}
+  .foot{font-size:11px;color:var(--text-mut);margin-top:2rem;border-top:0.5px solid var(--border);padding-top:1rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <h1>Ranking Eng. Dados Databricks</h1>
+    <span class="subhead">30 candidatos · dados fictícios · orçamento R$100–160/h · teto R$180</span>
+  </div>
+
+  <div class="cards">
+    <div class="metric"><div class="lbl">Candidatos únicos</div><div class="val">30</div><div class="hint">1 duplicata resolvida</div></div>
+    <div class="metric"><div class="lbl">Custo mediano/h</div><div class="val">R$140</div><div class="hint">média R$140</div></div>
+    <div class="metric"><div class="lbl">Faixa de custo</div><div class="val">R$100–195</div><div class="hint">2 fora do teto</div></div>
+    <div class="metric"><div class="lbl">Dentro do orçamento</div><div class="val" style="color:var(--ok)">25</div><div class="hint">de 30 (≤R$160)</div></div>
+    <div class="metric"><div class="lbl">Com certificação</div><div class="val" style="color:var(--accent)">20</div><div class="hint">67% do pool</div></div>
+  </div>
+
+  <section>
+    <h2>Rankings rápidos por critério</h2>
+    <p class="sub">Cada bloco tem seu próprio controle de quantidade (Top-N).</p>
+    <div class="mini-grid" id="minis"></div>
+  </section>
+
+  <section>
+    <h2>Quadros por senioridade</h2>
+    <p class="sub">Classificação por critérios reais (tempo total, tempo na stack, escopo hands-on × gestão × arquitetura, progressão) — não pelo auto-título do CV. Flags marcam divergência entre título declarado e perfil real.</p>
+    <div class="senq" id="senq"></div>
+  </section>
+
+  <section>
+    <h2>Mérito × custo</h2>
+    <p class="sub">Zona ideal = alto mérito, custo ≤ R$160. Pontos à direita passam do orçamento.</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#7E8B5E"></span>Dentro do orçamento</span>
+      <span><span class="dot" style="background:#D9A441"></span>Até o teto (R$180)</span>
+      <span><span class="dot" style="background:#C2543A"></span>Acima do teto</span>
+    </div>
+    <div class="chartbox" style="height:360px;"><canvas id="scatter"></canvas></div>
+  </section>
+
+  <section class="grid2">
+    <div>
+      <h2>Cobertura técnica do pool</h2>
+      <p class="sub">% que domina cada tecnologia mandatória. Delta Lake e Lakehouse são os gargalos.</p>
+      <div id="coverage"></div>
+    </div>
+    <div>
+      <h2>Senioridade</h2>
+      <p class="sub">Aderente ao alvo Pleno/Sênior/Arquiteto.</p>
+      <div class="chartbox" style="height:230px;"><canvas id="senior"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tabela completa — 30 candidatos</h2>
+    <p class="sub">Clique em qualquer cabeçalho para ordenar. Use os filtros e o campo "exibir" para controlar quantas linhas aparecem.</p>
+    <div class="controls">
+      <span><label>Exibir top</label> <input type="number" id="limit" value="30" min="1" max="30"></span>
+      <span><label>Fornecedor</label>
+        <select id="fFor"><option value="">todos</option></select></span>
+      <span><label>Só dentro do orçamento (≤160)</label> <input type="checkbox" id="fBudget"></span>
+      <span><input type="text" id="fSearch" placeholder="buscar nome…"></span>
+      <span class="count" id="rowcount"></span>
+    </div>
+    <div style="overflow-x:auto;">
+    <table id="tbl">
+      <thead><tr>
+        <th data-k="rank">#</th>
+        <th data-k="n">Nome</th>
+        <th data-k="forn">Fornecedor</th>
+        <th data-k="loc">Local</th>
+        <th data-k="sen">Senioridade</th>
+        <th data-k="ing">Inglês</th>
+        <th data-k="cust" class="num">Custo/h</th>
+        <th data-k="mer" class="num">Mérito</th>
+        <th data-k="cb" class="num">CB</th>
+        <th data-k="score" class="num">Score</th>
+        <th data-k="dif">Diferencial / flag</th>
+        <th>Contato</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </section>
+
+  <div class="foot">Exemplo gerado com dados 100% fictícios para demonstração do prompt de ranking · 25/07/2026. CB = índice custo-benefício (mérito ÷ custo normalizado por 160). Rafael Oliveira considerado pelo menor custo entre 2 fornecedores (R$160). Pedro Almeida e Gabriel Santos sem custo informado — "a confirmar". Felipe Santos (R$195) e Vinícius Rocha (R$185) acima do teto de R$180. ⚠️ Em uso real, este arquivo pode conter dados pessoais — trate com o mesmo cuidado que os CVs originais.</div>
+</div>
+
+<script>
+// 30 candidatos FICTÍCIOS. custo null = a confirmar.
+// cb (custo-benefício) = merito/(custo/160), null quando custo indefinido.
+window.CANDS = [
+ {n:"Rafael Oliveira",forn:"Nexus RH",loc:"Campinas/SP",sen:"Arquiteto",ing:"Fluente",cust:160,mer:94,score:94,cert:3,dif:"Cert Databricks Professional + stack integral",flag:"Duplicata: 2 fornecedores — menor custo aplicado",senClass:"Arquiteto",divTitle:""},
+ {n:"Marcos Paulo",forn:"Nexus RH",loc:"São Paulo/SP",sen:"Arquiteto",ing:"Avançado",cust:175,mer:87,score:85,cert:3,dif:"3 certs (Databricks Prof., Azure SA, AWS)",flag:"",senClass:"Arquiteto",divTitle:""},
+ {n:"Camila Rodrigues",forn:"DataTech Solutions",loc:"Curitiba/PR",sen:"Sênior",ing:"—",cust:155,mer:81,score:81,cert:2,dif:"CI/CD com Terraform + Governança",flag:"Inglês não declarado",senClass:"Sênior",divTitle:""},
+ {n:"Lucas Mendes",forn:"DataTech Solutions",loc:"Belo Horizonte/MG",sen:"Sênior",ing:"Avançado",cust:145,mer:79,score:80,cert:1,dif:"Airflow + CI/CD sólidos",flag:"",senClass:"Sênior",divTitle:""},
+ {n:"André Vieira",forn:"Nexus RH",loc:"Campinas/SP",sen:"Arquiteto",ing:"Intermediário",cust:160,mer:79,score:79,cert:2,dif:"Data Vault + Governança",flag:"",senClass:"Arquiteto",divTitle:""},
+ {n:"Bruno Carvalho",forn:"Talent Hub",loc:"Florianópolis/SC",sen:"Sênior",ing:"Avançado",cust:140,mer:74,score:76,cert:1,dif:"Bom generalista Azure",flag:"Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Felipe Santos",forn:"TechBridge",loc:"São Paulo/SP",sen:"Arquiteto",ing:"Fluente",cust:195,mer:94,score:76,cert:3,dif:"Perfil excepcional",flag:"ACIMA DO TETO R$180",senClass:"Atenção",divTitle:"Declara Principal — acima do alvo da vaga"},
+ {n:"Mariana Costa",forn:"Nexus RH",loc:"Rio de Janeiro/RJ",sen:"Sênior",ing:"Intermediário",cust:130,mer:72,score:75,cert:1,dif:"Structured Streaming",flag:"",senClass:"Sênior",divTitle:""},
+ {n:"Diego Nascimento",forn:"Recruta Digital",loc:"Brasília/DF",sen:"Sênior",ing:"Intermediário",cust:150,mer:73,score:74,cert:2,dif:"Kafka + CI/CD",flag:"Delta Lake não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Vinícius Rocha",forn:"Talent Hub",loc:"São Paulo/SP",sen:"Arquiteto",ing:"Fluente",cust:185,mer:90,score:73,cert:3,dif:"Perfil forte de Arquiteto",flag:"ACIMA DO TETO R$180",senClass:"Arquiteto",divTitle:""},
+ {n:"Gustavo Henrique",forn:"DataTech Solutions",loc:"Belo Horizonte/MG",sen:"Sênior",ing:"Básico",cust:148,mer:71,score:72,cert:1,dif:"Stack sólida",flag:"Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Fernanda Lima",forn:"Dados & Cia",loc:"Porto Alegre/RS",sen:"Sênior",ing:"Intermediário",cust:135,mer:69,score:72,cert:1,dif:"Formação forte + Governança",flag:"Lakehouse/ETL não evidenciados",senClass:"Sênior",divTitle:""},
+ {n:"Rodrigo Freitas",forn:"Dados & Cia",loc:"Salvador/BA",sen:"Sênior",ing:"Básico",cust:155,mer:69,score:69,cert:1,dif:"Kafka",flag:"Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Isabela Ramos",forn:"Talent Hub",loc:"Rio de Janeiro/RJ",sen:"Sênior",ing:"Avançado",cust:142,mer:66,score:68,cert:1,dif:"Formação excelente",flag:"Delta Lake ausente · PySpark fraco",senClass:"Sênior",divTitle:""},
+ {n:"Patrícia Moura",forn:"CloudPeople",loc:"Goiânia/GO",sen:"Sênior",ing:"Intermediário",cust:138,mer:65,score:67,cert:1,dif:"Power BI",flag:"Lakehouse/ETL não evidenciados",senClass:"Sênior",divTitle:""},
+ {n:"Pedro Almeida",forn:"CloudPeople",loc:"Recife/PE",sen:"Sênior",ing:"Avançado",cust:null,mer:70,score:66,cert:1,dif:"Integração SAP→Databricks",flag:"Custo a confirmar · cert expirada · Azure fraco",senClass:"Sênior",divTitle:""},
+ {n:"Ricardo Teixeira",forn:"Recruta Digital",loc:"Porto Alegre/RS",sen:"Sênior",ing:"Básico",cust:158,mer:66,score:66,cert:1,dif:"Kafka + CI/CD",flag:"Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Felipe Duarte",forn:"Talent Hub",loc:"Belo Horizonte/MG",sen:"Sênior",ing:"Intermediário",cust:145,mer:64,score:65,cert:1,dif:"Airflow",flag:"Delta Lake fraco · Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Daniela Pires",forn:"Nexus RH",loc:"Recife/PE",sen:"Sênior",ing:"Avançado",cust:132,mer:60,score:63,cert:1,dif:"Governança + Power BI",flag:"Delta Lake fraco · Lakehouse não evidenciado",senClass:"Sênior",divTitle:""},
+ {n:"Carolina Azevedo",forn:"TechBridge",loc:"São Paulo/SP",sen:"Pleno",ing:"Avançado",cust:125,mer:60,score:63,cert:0,dif:"Inglês avançado",flag:"Delta Lake ausente · Lakehouse não evidenciado",senClass:"Pleno",divTitle:""},
+ {n:"Tatiana Barros",forn:"Recruta Digital",loc:"Curitiba/PR",sen:"Pleno",ing:"Intermediário",cust:128,mer:55,score:57,cert:0,dif:"—",flag:"<60% stack mandatória",senClass:"Pleno",divTitle:""},
+ {n:"Renata Silveira",forn:"TechBridge",loc:"Vitória/ES",sen:"Pleno",ing:"Intermediário",cust:118,mer:52,score:56,cert:0,dif:"Custo acessível",flag:"<60% stack · Azure ausente",senClass:"Pleno",divTitle:""},
+ {n:"Gabriel Santos",forn:"DataTech Solutions",loc:"Joinville/SC",sen:"Pleno",ing:"Básico",cust:null,mer:53,score:53,cert:1,dif:"Azure Fundamentals",flag:"Custo a confirmar · Delta Lake/Lakehouse ausentes",senClass:"Pleno",divTitle:""},
+ {n:"Amanda Lopes",forn:"CloudPeople",loc:"Belém/PA",sen:"Pleno",ing:"Intermediário",cust:122,mer:48,score:51,cert:0,dif:"—",flag:"<60% stack mandatória",senClass:"Pleno",divTitle:""},
+ {n:"Ana Clara Souza",forn:"TechBridge",loc:"São Paulo/SP",sen:"Pleno",ing:"Intermediário",cust:120,mer:44,score:47,cert:0,dif:"—",flag:"<60% stack mandatória",senClass:"Pleno",divTitle:""},
+ {n:"Eduardo Martins",forn:"Dados & Cia",loc:"Fortaleza/CE",sen:"Pleno",ing:"Básico",cust:115,mer:42,score:45,cert:0,dif:"—",flag:"<60% stack mandatória",senClass:"Pleno",divTitle:""},
+ {n:"Natália Correia",forn:"Dados & Cia",loc:"Natal/RN",sen:"Pleno",ing:"Intermediário",cust:112,mer:35,score:38,cert:0,dif:"—",flag:"<60% stack mandatória",senClass:"Pleno",divTitle:""},
+ {n:"Juliana Ferreira",forn:"Nexus RH",loc:"Curitiba/PR",sen:"Pleno",ing:"Básico",cust:110,mer:33,score:36,cert:0,dif:"—",flag:"Gap 8 meses (2022-23)",senClass:"Atenção",divTitle:"Declara Pleno — perfil real Júnior/Pleno"},
+ {n:"Larissa Campos",forn:"Recruta Digital",loc:"Manaus/AM",sen:"Júnior",ing:"Intermediário",cust:108,mer:26,score:28,cert:0,dif:"—",flag:"Senioridade inflada",senClass:"Atenção",divTitle:"Declara Engenheira de Dados — perfil real Júnior"},
+ {n:"Thiago Lima",forn:"CloudPeople",loc:"Maringá/PR",sen:"Júnior",ing:"Básico",cust:100,mer:18,score:20,cert:0,dif:"—",flag:"Formação incompleta · senioridade inflada",senClass:"Atenção",divTitle:"Declara Engenheiro de Dados — perfil real Júnior"}
+];
+
+// Contatos FICTÍCIOS (formato: [telefone, email])
+window.CONTACTS = {
+ "Rafael Oliveira":["5519999001122","rafael.oliveira@email.com"],
+ "Marcos Paulo":["5511944001122","marcos.paulo@email.com"],
+ "Camila Rodrigues":["5541977334455","camila.rodrigues@email.com"],
+ "Lucas Mendes":["5531988112233","lucas.mendes@email.com"],
+ "André Vieira":["5519988776655","andre.vieira@email.com"],
+ "Bruno Carvalho":["5548977112233","bruno.carvalho@email.com"],
+ "Felipe Santos":["5511966778899","felipe.santos@email.com"],
+ "Mariana Costa":["5521955667788","mariana.costa@email.com"],
+ "Diego Nascimento":["5561988334455","diego.nascimento@email.com"],
+ "Vinícius Rocha":["5511922334455","vinicius.rocha@email.com"],
+ "Gustavo Henrique":["5531977445566","gustavo.henrique@email.com"],
+ "Fernanda Lima":["5551966778899","fernanda.lima@email.com"],
+ "Rodrigo Freitas":["5571955443322","rodrigo.freitas@email.com"],
+ "Isabela Ramos":["5521933221100","isabela.ramos@email.com"],
+ "Patrícia Moura":["5562933112200","patricia.moura@email.com"],
+ "Pedro Almeida":["5581944556677","pedro.almeida@email.com"],
+ "Ricardo Teixeira":["5551944332211","ricardo.teixeira@email.com"],
+ "Felipe Duarte":["5531922110099","felipe.duarte@email.com"],
+ "Daniela Pires":["5581933445566","daniela.pires@email.com"],
+ "Carolina Azevedo":["5511988776655","carolina.azevedo@email.com"],
+ "Tatiana Barros":["5541922334455","tatiana.barros@email.com"],
+ "Renata Silveira":["5527933221100","renata.silveira@email.com"],
+ "Gabriel Santos":["5547944556677","gabriel.santos@email.com"],
+ "Amanda Lopes":["5591922110099","amanda.lopes@email.com"],
+ "Ana Clara Souza":["5511933445566","anaclara.souza@email.com"],
+ "Eduardo Martins":["5585911223344","eduardo.martins@email.com"],
+ "Natália Correia":["5584900112233","natalia.correia@email.com"],
+ "Juliana Ferreira":["5541922334455","juliana.ferreira@email.com"],
+ "Larissa Campos":["5592911334455","larissa.campos@email.com"],
+ "Thiago Lima":["5544911223344","thiago.lima@email.com"]
+};
+</script>
+<script>
+const K=window.CONTACTS||{};
+const waMsg=encodeURIComponent("Olá! Estamos com uma vaga de Engenheiro(a) de Dados Databricks. Vi seu perfil e gostaria de agendar uma conversa. Você tem disponibilidade?");
+function contactCell(c){
+  const k=K[c.n];
+  if(!k) return '<span style="color:var(--text-mut);font-size:11px">—</span>';
+  const [tel,email]=k;
+  return `<div class="contact">
+    <a class="cbtn wa" href="https://wa.me/${tel}?text=${waMsg}" target="_blank" title="WhatsApp: +${tel}" aria-label="Abrir WhatsApp de ${c.n}"><i class="ti ti-brand-whatsapp"></i><span style="display:none">WA</span></a>
+    <button class="cbtn em" onclick="copyEmail('${email}')" title="Copiar e-mail: ${email}" aria-label="Copiar e-mail de ${c.n}"><i class="ti ti-mail"></i><span style="display:none">@</span></button>
+  </div>`;
+}
+function copyEmail(e){
+  navigator.clipboard.writeText(e).then(()=>showToast('E-mail copiado: '+e)).catch(()=>showToast('E-mail: '+e));
+}
+let toastT;
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);}
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+const C=window.CANDS.map(x=>({...x, cb: x.cust? +(x.mer/(x.cust/160)).toFixed(1):null}));
+const dark=matchMedia('(prefers-color-scheme:dark)').matches;
+const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const ink=cssv('--text-mut')||'#8a887f', sec=cssv('--text-sec')||'#57564f';
+const grid=dark?'#33322e':'#e4e2d9', surf=dark?'#1a1a19':'#ffffff';
+
+// ---- fornecedor filter options ----
+const fors=[...new Set(C.map(c=>c.forn))].sort();
+const selFor=document.getElementById('fFor');
+fors.forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;selFor.appendChild(o);});
+
+// ---- main table ----
+let sortK='score', sortDir=-1;
+function pillFor(c){
+  if(c.cust===null) return '<span class="pill p-gray">a confirmar</span>';
+  if(c.cust>180) return '<span class="pill p-red">R$'+c.cust+'</span>';
+  if(c.cust>160) return '<span class="pill p-amber">R$'+c.cust+'</span>';
+  return '<span class="pill p-green">R$'+c.cust+'</span>';
+}
+function render(){
+  const lim=Math.max(1,Math.min(30,+document.getElementById('limit').value||30));
+  const ff=selFor.value, fb=document.getElementById('fBudget').checked;
+  const fs=document.getElementById('fSearch').value.toLowerCase();
+  let rows=C.filter(c=>(!ff||c.forn===ff)&&(!fb||(c.cust!==null&&c.cust<=160))&&(!fs||c.n.toLowerCase().includes(fs)));
+  rows.sort((a,b)=>{
+    let va=a[sortK], vb=b[sortK];
+    if(sortK==='rank'){va=a.score;vb=b.score;} // rank follows score
+    if(va===null)va=-Infinity; if(vb===null)vb=-Infinity;
+    if(typeof va==='string')return sortDir*va.localeCompare(vb);
+    return sortDir*(va-vb);
+  });
+  rows=rows.slice(0,lim);
+  const tb=document.querySelector('#tbl tbody');
+  tb.innerHTML='';
+  rows.forEach((c,i)=>{
+    tb.insertAdjacentHTML('beforeend',
+      `<tr><td class="num">${i+1}</td><td>${c.n}</td><td>${c.forn}</td><td>${c.loc}</td>
+       <td>${c.sen}</td><td>${c.ing}</td><td class="num">${pillFor(c)}</td>
+       <td class="num">${c.mer}</td><td class="num">${c.cb!==null?c.cb:'—'}</td>
+       <td class="num" style="font-weight:500">${c.score}</td>
+       <td class="flagcell"><span style="color:var(--text-sec)">${c.dif}</span>${c.flag?' · '+c.flag:''}</td>
+       <td>${contactCell(c)}</td></tr>`);
+  });
+  document.getElementById('rowcount').textContent=rows.length+' de 30 exibidos';
+  document.querySelectorAll('#tbl th').forEach(th=>{
+    const a=th.querySelector('.arr'); if(a)a.remove();
+    if(th.dataset.k===sortK){const s=document.createElement('span');s.className='arr';s.textContent=sortDir<0?'▼':'▲';th.appendChild(s);}
+  });
+}
+document.querySelectorAll('#tbl th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;
+  if(!k)return;
+  if(sortK===k)sortDir*=-1; else{sortK=k;sortDir=(k==='n'||k==='forn'||k==='loc'||k==='sen'||k==='ing')?1:-1;}
+  render();
+}));
+['limit','fBudget','fSearch'].forEach(id=>document.getElementById(id).addEventListener('input',render));
+selFor.addEventListener('change',render);
+
+// ---- mini rankings ----
+const minis=[
+  {id:'cb',ttl:'Melhor custo-benefício',icon:'★',desc:'Índice mérito ÷ custo. Só com custo declarado.',
+   data:()=>C.filter(c=>c.cb!==null).sort((a,b)=>b.cb-a.cb),val:c=>c.cb, def:5},
+  {id:'mer',ttl:'Maior mérito puro',icon:'◆',desc:'Ignora custo — qualidade técnica bruta.',
+   data:()=>[...C].sort((a,b)=>b.mer-a.mer),val:c=>c.mer, def:5},
+  {id:'cheap',ttl:'Mais baratos',icon:'↓',desc:'Menor custo/hora declarado.',
+   data:()=>C.filter(c=>c.cust!==null).sort((a,b)=>a.cust-b.cust),val:c=>'R$'+c.cust, def:5},
+  {id:'cert',ttl:'Mais certificações',icon:'✓',desc:'Certificações relevantes (Databricks/cloud).',
+   data:()=>C.filter(c=>c.cert>0).sort((a,b)=>b.cert-a.cert||b.mer-a.mer),val:c=>c.cert+' cert'+(c.cert>1?'s':''), def:5}
+];
+const mc=document.getElementById('minis');
+minis.forEach(m=>{
+  mc.insertAdjacentHTML('beforeend',
+    `<div class="mini"><h3><span style="color:var(--accent)">${m.icon}</span>${m.ttl}</h3>
+     <div class="mdesc">${m.desc}</div>
+     <div class="mctl"><label>Top</label><input type="number" id="lim-${m.id}" value="${m.def}" min="1" max="20" style="width:56px"></div>
+     <ul class="mlist" id="list-${m.id}"></ul></div>`);
+  const draw=()=>{
+    const n=Math.max(1,Math.min(20,+document.getElementById('lim-'+m.id).value||m.def));
+    const ul=document.getElementById('list-'+m.id); ul.innerHTML='';
+    m.data().slice(0,n).forEach(c=>ul.insertAdjacentHTML('beforeend',
+      `<li><span class="mn">${c.n} <span class="mf">· ${c.forn}</span></span><span class="mv">${m.val(c)}</span></li>`));
+  };
+  draw();
+  document.getElementById('lim-'+m.id).addEventListener('input',draw);
+});
+
+// ---- quadros por senioridade ----
+const senCols=[
+  {k:'Arquiteto',desc:'Perfil real de arquitetura de dados.',att:false},
+  {k:'Sênior',desc:'Núcleo do pool.',att:false},
+  {k:'Pleno',desc:'Perfil em desenvolvimento na stack.',att:false},
+  {k:'Atenção',desc:'Título declarado diverge do perfil real ou fora do teto.',att:true}
+];
+function custPill(c){
+  if(c.cust===null) return '<span class="pill p-gray">a confirmar</span>';
+  if(c.cust>180) return '<span class="pill p-red">R$'+c.cust+'</span>';
+  if(c.cust>160) return '<span class="pill p-amber">R$'+c.cust+'</span>';
+  return '<span class="pill p-green">R$'+c.cust+'</span>';
+}
+const sq=document.getElementById('senq');
+senCols.forEach((col,ci)=>{
+  const list=C.filter(c=>c.senClass===col.k).sort((a,b)=>b.score-a.score);
+  const cap=list.length;
+  sq.insertAdjacentHTML('beforeend',
+    `<div class="sencol${col.att?' att':''}"><h3>${col.k}<span class="cnt">${cap}</span></h3>
+     <div class="cdesc">${col.desc}</div>
+     <div class="mctl"><label>Top</label><input type="number" id="senlim-${ci}" value="${Math.min(5,cap)}" min="1" max="${cap}" style="width:56px"></div>
+     <div id="senlist-${ci}"></div></div>`);
+  const draw=()=>{
+    const n=Math.max(1,Math.min(cap,+document.getElementById('senlim-'+ci).value||Math.min(5,cap)));
+    const box=document.getElementById('senlist-'+ci); box.innerHTML='';
+    list.slice(0,n).forEach(c=>box.insertAdjacentHTML('beforeend',
+      `<div class="cvcard"><div class="cn">${c.n}</div>
+        <div class="cmeta"><span>${c.forn}</span><span>score ${c.score}</span><span>${custPill(c)}</span></div>
+        ${c.divTitle?`<div class="cflag">${c.divTitle}</div>`:''}</div>`));
+  };
+  draw();
+  document.getElementById('senlim-'+ci).addEventListener('input',draw);
+});
+
+// ---- scatter ----
+const colFor=c=>c.cust===null?'#7A7164':(c.cust>180?'#C2543A':(c.cust>160?'#D9A441':'#7E8B5E'));
+new Chart(document.getElementById('scatter'),{type:'scatter',
+ data:{datasets:[{data:C.filter(c=>c.cust!==null).map(c=>({x:c.cust,y:c.mer,n:c.n})),
+   backgroundColor:C.filter(c=>c.cust!==null).map(colFor),pointRadius:6,pointHoverRadius:9,borderColor:surf,borderWidth:2}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.n}: mérito ${c.raw.y}, R$${c.raw.x}/h`}}},
+  scales:{x:{title:{display:true,text:'Custo/hora (R$)',color:sec,font:{size:12}},min:90,max:205,ticks:{color:ink,callback:v=>'R$'+v},grid:{color:grid}},
+   y:{title:{display:true,text:'Score de mérito',color:sec,font:{size:12}},min:10,max:100,ticks:{color:ink},grid:{color:grid}}}}});
+
+// ---- coverage ----
+const cov=[['Python',100],['SQL',100],['Git',100],['Databricks',93],['PySpark',87],['ETL/ELT',70],['Azure',67],['Delta Lake',57],['Lakehouse',50]];
+const cdiv=document.getElementById('coverage');
+cov.forEach(([k,v])=>{const s=(k==='Lakehouse'||k==='Delta Lake');
+ cdiv.insertAdjacentHTML('beforeend',
+  `<div class="bar-row"><div class="top"><span style="color:var(--text-sec)">${k}${s?' <span style="color:var(--warn)">· escassa</span>':''}</span><span style="font-weight:500">${v}%</span></div>
+   <div class="bar-track"><div class="bar-fill" style="width:${v}%;background:${s?'#D9A441':'#7E8B5E'}"></div></div></div>`);});
+
+// ---- senioridade ----
+const senC={}; C.forEach(c=>{const k=c.sen.includes('Arq')?'Arquiteto':c.sen.includes('Pleno')?'Pleno':c.sen.includes('Jún')?'Júnior':'Sênior';senC[k]=(senC[k]||0)+1;});
+new Chart(document.getElementById('senior'),{type:'doughnut',
+ data:{labels:['Sênior','Arquiteto','Pleno','Júnior'],
+  datasets:[{data:[senC['Sênior']||0,senC['Arquiteto']||0,senC['Pleno']||0,senC['Júnior']||0],
+   backgroundColor:['#D9A441','#B8862C','#7E8B5E','#8A6B2F'],borderColor:surf,borderWidth:2}]},
+ options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+  plugins:{legend:{position:'right',labels:{color:sec,font:{size:12},boxWidth:10,padding:10}}}}});
+
+render();
+</script>
+</body>
+</html>

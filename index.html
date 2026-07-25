@@ -1511,9 +1511,541 @@ Se qualquer verificação falhar:
     </div>
   </details>
 
+  <!-- ============ TRILHA 05 ============ -->
+  <details class="trilha" id="ranking-cv">
+    <summary>
+      <span class="t-num">05</span>
+      <span class="t-head">
+        <h2>Garimpo de Currículos</h2>
+        <p>Ache o ouro. Pague o justo. — Um lote de CVs entra; sai quem merece a entrevista, pelo preço certo.</p>
+        <span class="plat">funciona em: <b>qualquer IA</b> · dashboard melhor no Claude</span>
+      </span>
+      <span class="t-arrow">▾</span>
+    </summary>
+    <div class="t-body">
+      <p class="route-label">O que você recebe</p>
+      <div class="stop"><p class="stop-name">Ranking completo com score final</p><p class="stop-desc">Todos os candidatos pontuados de 0–100, com pesos ajustáveis por critério.</p></div>
+      <div class="stop g"><p class="stop-name">Ranking duplo: mérito × custo-benefício</p><p class="stop-desc">Quem é bom, quem é caro pro valor, e quem é o melhor negócio.</p></div>
+      <div class="stop"><p class="stop-name">Fichas detalhadas + red flags</p><p class="stop-desc">Cada nota justificada com evidência do CV. Senioridade real, não auto-título.</p></div>
+      <div class="stop g"><p class="stop-name">Dashboard HTML interativo</p><p class="stop-desc">Gráfico mérito × custo, cobertura técnica, tabela ordenável com filtros.</p></div>
+
+      <div class="notice">
+        <b>⚖️ LGPD:</b> currículos são dados pessoais de terceiros. Use somente a IA aprovada pela sua empresa e trate o dashboard gerado com o mesmo cuidado dos CVs. O prompt pergunta antes de incluir dados de contato no arquivo.
+      </div>
+
+      <p class="route-label" style="margin-top:26px;">Veja o que essa trilha entrega</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <a href="cv-ranking-prompt-builder.html" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;background:var(--matte);border:1px solid var(--gold-dim);border-radius:12px;text-decoration:none;color:var(--text);">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--olive);">Exemplo 1 ↗</span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;color:var(--gold);font-size:14px;">⚙️ Prompt Builder</span>
+          <span style="font-size:12px;color:var(--text-dim);line-height:1.4;">A ferramenta visual — configure e gere seu prompt personalizado.</span>
+        </a>
+        <a href="dashboard-ranking-exemplo-trilha.html" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;background:var(--matte);border:1px solid var(--gold-dim);border-radius:12px;text-decoration:none;color:var(--text);">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--olive);">Exemplo 2 ↗</span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;color:var(--gold);font-size:14px;">⛏️ Dashboard de exemplo</span>
+          <span style="font-size:12px;color:var(--text-dim);line-height:1.4;">O que o prompt gera no fim — 30 candidatos fictícios.</span>
+        </a>
+      </div>
+
+      <p class="route-label" style="margin-top:28px;">Prompt pronto — para copiar e colar na IA</p>
+      <div class="prompt-box">
+        <div class="prompt-bar">
+          <span class="filetag">garimpo-de-curriculos.md</span>
+          <button class="copy-btn" data-target="prompt-rankingcv">Copiar prompt</button>
+        </div>
+        <div class="prompt-scroll" id="scroll-rankingcv">
+          <pre id="prompt-rankingcv">Você é um(a) recrutador(a) técnico(a) sênior. Analise, pontue e ranqueie um
+lote de currículos para a vaga abaixo, equilibrando MÉRITO TÉCNICO e
+CUSTO-BENEFÍCIO, gere insights consolidados sobre o pool e, ao final,
+produza um dashboard HTML interativo (especificação na SEÇÃO 6).
+
+---
+
+## CONTEXTO DA VAGA
+
+**Título:** [Título da vaga]
+**Empresa/Contexto:** [Empresa ou área contratante]
+**Localidade:** [Cidade/estado, remoto ou híbrido]
+**Senioridade Alvo:** [Ex.: Pleno, Sênior, Arquiteto]
+
+**Descrição:**
+[Cole aqui a descrição da vaga: responsabilidades e requisitos]
+
+&gt; **Exemplo preenchido (fictício):**
+&gt; - Título: Engenheiro(a) de Dados Databricks
+&gt; - Empresa: Consultoria Delta (projeto para cliente do setor de energia)
+&gt; - Localidade: remoto, Brasil
+&gt; - Senioridade alvo: Pleno, Sênior, Arquiteto
+&gt; - Descrição: projetar e evoluir plataformas Lakehouse (Databricks, Delta
+&gt;   Lake, PySpark); pipelines batch e streaming; padrões de data quality e
+&gt;   governança; modelagem dimensional/Data Vault; cloud Azure.
+
+---
+
+## STACK TECNOLÓGICO
+
+**Mandatório (peso alto; ausência da maioria = forte penalização):**
+[Liste as tecnologias obrigatórias, separadas por ·]
+
+**Diferenciais (agregam pontuação, não eliminam):**
+[Liste as tecnologias desejáveis, separadas por ·]
+
+&gt; **Exemplo:** Mandatório: Python · PySpark · Databricks · Delta Lake ·
+&gt; SQL · Azure · Git. Diferenciais: Airflow · Kafka · CI/CD · Power BI ·
+&gt; Unity Catalog · certificações Databricks/cloud.
+
+---
+
+## CRITÉRIO DE IDIOMAS
+
+- Inglês: **DIFERENCIAL — soma pontos, ausência NÃO elimina**
+  (ajuste se na sua vaga for obrigatório)
+- Registrar nível declarado (Básico/Intermediário/Avançado/Fluente/Nativo)
+
+---
+
+## CUSTO-BENEFÍCIO
+
+- Unidade de custo: [hora / mês / salário]
+- Orçamento / faixa alvo: [ex.: 100–160]
+- Teto máximo aceitável: [ex.: 180]
+- Regra de cálculo: **ÍNDICE QUALIDADE/CUSTO** = pontuação de mérito
+  (todos os critérios exceto custo) ÷ custo normalizado do candidato.
+  Quanto maior o índice, melhor o custo-benefício.
+- Um candidato excelente com custo muito acima do teto NÃO deve liderar o
+  ranking final.
+- Sinalize explicitamente candidatos &quot;CAROS PARA O VALOR&quot; (alta qualidade,
+  custo desproporcional).
+- Destaque o candidato de MELHOR CUSTO-BENEFÍCIO (nem sempre o mais barato
+  nem o de maior mérito absoluto).
+- Candidatos **acima do teto**: sinalize como desclassificados por custo e
+  rebaixe no ranking final.
+- Candidatos SEM custo informado: sinalize &quot;custo a confirmar&quot;, ranqueie o
+  mérito normalmente e não os beneficie nem prejudique no critério de
+  custo. Se depois for fornecida uma planilha/lista de custos, reconcilie
+  e recalcule.
+
+---
+
+## CRITÉRIOS DE PONTUAÇÃO E PESOS
+
+Escala **0–100**. (Ajuste os pesos à sua realidade; a soma deve dar 100%.)
+
+| Critério | Peso |
+|---|---|
+| Aderência Técnica | 30% |
+| Experiência Relevante | 20% |
+| Formação Acadêmica | 8% |
+| Senioridade | 12% |
+| Idiomas | 2% |
+| Certificações | 8% |
+| Custo-benefício | 20% |
+| **TOTAL** | **100%** |
+
+**Instruções por critério:**
+1. **Aderência Técnica:** quantas tecnologias mandatórias domina,
+   profundidade e tempo. Diferenciais somam bônus. Penalize forte quem tem
+   &lt;60% do stack mandatório.
+2. **Experiência:** anos totais vs. específicos, porte das empresas,
+   projetos similares e impacto mensurado.
+3. **Formação:** graduação na área, pós/MBA, cursos técnicos. Bootcamps
+   válidos se comprovados.
+4. **Senioridade:** alinhamento ao alvo. **Avalie pela progressão real
+   (tempo total, tempo na stack, escopo hands-on × gestão × arquitetura),
+   NÃO pelo auto-título.** Overqualified reduz nota. Marque divergências
+   entre título declarado e perfil real.
+5. **Idiomas:** fluente = máximo; intermediário = 70%; básico = 30%; sem
+   inglês = 0 (não elimina). Outros idiomas somam bônus.
+6. **Certificações:** da stack e de cloud. Expiradas valem 50%.
+7. **Custo-benefício:** índice qualidade/custo conforme regra acima.
+
+---
+
+## REGRAS ANTI-INVENÇÃO (OBRIGATÓRIAS)
+
+- Pontue APENAS com base em informação explícita no CV. Campo sem
+  informação = nota ZERO no critério (exceto custo, ver regra própria).
+- **Nunca estime ou deduza o custo de um candidato** a partir de pretensão
+  salarial, senioridade ou mercado. Custo não informado = &quot;a confirmar&quot;.
+- Nunca presuma domínio de uma tecnologia por associação (&quot;trabalhou com
+  Spark, então deve saber Databricks&quot;). Tecnologia sem evidência = não
+  conta.
+- Se dois CVs parecerem da mesma pessoa mas você não tiver certeza,
+  sinalize como &quot;possível duplicata&quot; e pergunte — não funda os registros
+  por conta própria.
+- Justifique cada nota em 1–2 linhas citando a evidência do CV.
+
+---
+
+## LOTES GRANDES
+
+Se o lote tiver mais de ~20 currículos, processe em blocos: analise e
+pontue cada bloco, mantenha uma tabela-resumo acumulada, e só gere os
+rankings finais e o dashboard após o último bloco. Avise em qual bloco
+está. Isso preserva a qualidade da análise.
+
+---
+
+## ANÁLISE DO BATCH — INSIGHTS CONSOLIDADOS
+
+Após ranquear individualmente, gere:
+
+1. **Duplicatas:** compare por nome, e-mail, telefone e histórico (não só
+   nome). Liste fornecedores de cada; se custos divergirem, recomende o
+   **menor custo**.
+2. **Por fornecedor:** qtd de CVs, aderência média, senioridade média,
+   custo médio, ranking dos fornecedores por custo-benefício.
+3. **Custo do pool:** soma, média, mediana, mínimo, máximo. Outliers. Sem
+   custo. Compare com orçamento e teto.
+4. **Senioridade:** qtd e % por faixa, com observação de alinhamento ao
+   alvo (classificação por critérios reais).
+5. **Idiomas:** com/sem inglês, distribuição por nível, %.
+6. **Geografia:** cidade/estado; top 5; remoto/presencial/híbrido.
+7. **Cobertura técnica:** para cada mandatória, quantos possuem; tabela
+   Tecnologia × % do pool; identifique a mais escassa.
+8. **Top 3:** ficha executiva (nome, pontuação, custo, diferenciais,
+   pontos de atenção, recomendação sim/não/talvez).
+9. **Red flags:** gaps &gt;6 meses sem explicação, experiência inflada ou
+   inconsistente, salto de senioridade, CV genérico, tecnologias sem
+   evidência.
+10. **Formação:** distribuição por Graduação/Pós-MBA/Bootcamp/Autodidata, %.
+11. **Certificações:** liste as relevantes, quem possui e total.
+
+**Imparcialidade:** avalie exclusivamente competências, experiência e
+custo declarado. Desconsidere foto, nome, gênero, idade e qualquer
+característica pessoal. NÃO gere estimativas demográficas sobre os
+candidatos — este processo avalia mérito, não perfil.
+
+---
+
+## FORMATO DO OUTPUT
+
+Estruture nesta ordem. **As SEÇÕES 1–5 são em texto; a SEÇÃO 6 é o
+dashboard HTML — gere as duas coisas.**
+
+**SEÇÃO 1 — TABELA DE RANKING** com todos os candidatos ordenados por
+Score Final (maior→menor): Posição | Nome | Fornecedor | Score Mérito |
+Custo | Custo-Benefício | Score Final | Senioridade | Inglês | Localidade
+| Principal Diferencial.
+
+**SEÇÃO 2 — RANKING DUPLO:** (1) por QUALIDADE PURA (ignora custo) e
+(2) por CUSTO-BENEFÍCIO. Comente quem cai muito no de custo-benefício
+(&quot;caro para o valor&quot;).
+
+**SEÇÃO 3 — FICHA DETALHADA** por candidato: score por critério
+(incluindo custo-benefício e custo declarado), cada nota justificada em
+1–2 linhas.
+
+**SEÇÃO 4 — DASHBOARD DE INSIGHTS** (texto) com as métricas consolidadas
+do pool.
+
+**SEÇÃO 5 — RECOMENDAÇÃO FINAL:** candidatos a entrevistar em ordem de
+prioridade, equilibrando qualidade e custo, justificativa 1–2 linhas cada.
+
+**SEÇÃO 6 — DASHBOARD HTML INTERATIVO:** ver especificação abaixo.
+
+---
+
+## SEÇÃO 6 — ESPECIFICAÇÃO DO DASHBOARD HTML
+
+Gere **um arquivo `.html` standalone**, pronto para abrir no navegador.
+
+**ANTES DE GERAR, PERGUNTE:**
+&quot;Deseja incluir os dados de contato (telefone/e-mail) dos candidatos no
+dashboard? Se sim, o arquivo passa a conter dados pessoais e não deve
+circular além do time de recrutamento.&quot;
+- Se SIM → incluir a coluna Contato (botões WhatsApp e copiar e-mail).
+- Se NÃO → omitir telefones e e-mails do arquivo por completo.
+
+**Técnicos**
+- Arquivo único, autocontido. Todos os dados dos candidatos embutidos
+  inline em um objeto JS no próprio HTML.
+- Gráficos com Chart.js (via CDN — informe a dependência ao usuário).
+- **Nunca usar localStorage/sessionStorage.** Estado só em variáveis JS.
+- Tema claro/escuro automático via `prefers-color-scheme`, com variáveis
+  CSS.
+- Responsivo (desktop e celular).
+- Paleta sóbria/executiva; formatação limpa.
+
+**Conteúdo e seções (nesta ordem):**
+1. **Cabeçalho** com título da vaga e resumo (nº de candidatos, orçamento,
+   teto).
+2. **Cards de métricas:** candidatos únicos, custo mediano, faixa de
+   custo, nº dentro do orçamento, nº com certificação-chave, e — se
+   aplicável — nº &quot;em avaliação/bloqueados&quot;.
+3. **Rankings rápidos por critério** (mini-listas), cada um com input
+   próprio de Top-N: melhor custo-benefício, maior mérito puro, mais
+   baratos, mais certificações.
+4. **Quadros por senioridade** — colunas lado a lado conforme os níveis da
+   vaga (+ coluna &quot;Atenção&quot;). Cada coluna mostra o Top 5 por score, com
+   input Top-N. Cada card: nome, fornecedor, score, custo (com cor
+   conforme orçamento) e flag de divergência de título quando houver.
+5. **Gráfico mérito × custo** (scatter): eixo X custo, eixo Y mérito; cor
+   verde (dentro do orçamento) / âmbar (até o teto) / vermelho (acima);
+   tooltip com nome, mérito e custo.
+6. **Cobertura técnica** (barras horizontais de % por tecnologia
+   mandatória, destacando a mais escassa) e **distribuição de
+   senioridade** (donut).
+7. **Tabela completa — TODOS os candidatos — como última seção.**
+   Colunas: #, Nome, Fornecedor, Local, Senioridade, Inglês, Custo,
+   Mérito, CB, Score, Diferencial/flag — e Contato somente se autorizado.
+   - Todas as colunas ordenáveis (clique no cabeçalho alterna asc/desc).
+   - Input &quot;Exibir top N&quot; + filtros: fornecedor, &quot;só dentro do orçamento&quot;,
+     busca por nome. Contador &quot;X de N exibidos&quot;.
+8. **Rodapé** com data, definição do índice CB e notas de reconciliação
+   (duplicatas, custos, quem estoura teto).
+
+**Regras de estado especiais (quando o usuário pedir):**
+- **Bloqueio/&quot;em avaliação por outro projeto&quot;:** marcar candidatos
+  indicados com selo visível (cadeado) na tabela, quadros e mini-listas;
+  manter no ranking (não remover); desativar os botões de contato desses
+  candidatos (cinza, sem ação, com aviso &quot;não contatar&quot;).
+
+**Entrega:** salvar o `.html` e disponibilizar para download (não apenas
+exibir o código). Se a plataforma não suportar gerar arquivos, avise e
+entregue apenas as Seções 1–5.
+
+---
+
+## INSTRUÇÕES OPERACIONAIS
+
+1. Leia TODOS os CVs antes de pontuar.
+2. Aplique as REGRAS ANTI-INVENÇÃO em todas as notas.
+3. Duplicatas confirmadas: mantenha UMA entrada (a versão mais completa);
+   registre os fornecedores; se custos divergirem, recomende o mais barato.
+4. Consistência: mesmos critérios e pesos para todos.
+5. Senioridade sempre por progressão real, não auto-título.
+6. Se surgir planilha de custos depois, reconcilie e recalcule
+   custo-benefício, scores e métricas do pool.
+7. Se o pool tiver qualidade baixa (&lt;30% com score &gt;60), sinalize
+   claramente — recomendar entrevistas de um pool fraco sem avisar é
+   desserviço.
+
+---
+
+## COMO USAR (resumo)
+
+1. Cole este prompt com os campos preenchidos.
+2. Envie os CVs.
+3. Informe fornecedor e custo por candidato (ou planilha depois).
+4. Receba as Seções 1–5 + o dashboard HTML da Seção 6.</pre>
+        </div>
+        <button class="expand-toggle" data-scroll="scroll-rankingcv">Ver prompt completo ▾</button>
+      </div>
+
+      <p class="route-label" style="margin-top:28px;">Avançado — Prompt que gera o Builder</p>
+      <p style="font-size:12.5px;color:var(--text-dim);margin-bottom:10px;line-height:1.5;">Cole este meta-prompt em uma IA que gera código (Claude ou ChatGPT) e ela produz o arquivo HTML da ferramenta Builder. Só para quem quer reconstruir ou customizar o Builder — para o uso normal, o prompt acima já basta.</p>
+      <div class="prompt-box">
+        <div class="prompt-bar">
+          <span class="filetag">meta-prompt-builder.md</span>
+          <button class="copy-btn" data-target="prompt-buildermeta">Copiar prompt</button>
+        </div>
+        <div class="prompt-scroll" id="scroll-buildermeta">
+          <pre id="prompt-buildermeta">Você vai gerar um ARQUIVO HTML ÚNICO E AUTOCONTIDO: uma ferramenta web
+chamada &quot;CV Ranking Prompt Builder&quot; que permite montar VISUALMENTE (clicando
+em opções) um prompt de ranking de currículos, para ser colado depois em
+outra IA junto com os CVs.
+
+═══════════════════════════════════════════════════════════════════════
+IMPORTANTE — O QUE A FERRAMENTA FAZ (E O QUE NÃO FAZ)
+═══════════════════════════════════════════════════════════════════════
+- Ela MONTA texto de prompt a partir das escolhas do usuário.
+- Ela NÃO processa currículos.
+- Ela NÃO armazena nenhum dado — sem localStorage, sem sessionStorage,
+  sem backend. Estado apenas em variáveis JavaScript.
+
+═══════════════════════════════════════════════════════════════════════
+REQUISITOS TÉCNICOS
+═══════════════════════════════════════════════════════════════════════
+- Arquivo único .html, standalone.
+- Fontes via Google Fonts: Inter (400/500/600/700) para UI, JetBrains Mono
+  (400/500) para o prompt gerado.
+- Sem outras dependências externas (nada de Chart.js aqui, sem CDN de
+  ícones — use emojis).
+- Responsivo (desktop e celular). Abas com scroll horizontal no mobile.
+
+═══════════════════════════════════════════════════════════════════════
+IDENTIDADE VISUAL — DARK PREMIUM
+═══════════════════════════════════════════════════════════════════════
+Tokens CSS:
+  --bg:#16130F;--surface:#1E1A15;--card:#262019;--border:#3A3229;
+  --text:#EDE6DA;--muted:#A69B8A;--dim:#7A7164;
+  --accent:#D9A441;--accent2:#B8862C;   /* dourado */
+  --teal:#7E8B5E;--teal2:#657049;        /* verde-oliva (secundário) */
+  --red:#C2543A;--amber:#D9A441;--green:#7E8B5E;
+  --radius:10px;--radius-sm:6px;
+
+Fundo grafite muito escuro, tipografia off-white quente. Accent dourado
+em botões, abas ativas, sliders e destaques. Oliva nos títulos de seção.
+
+═══════════════════════════════════════════════════════════════════════
+ESTRUTURA DA PÁGINA
+═══════════════════════════════════════════════════════════════════════
+
+1) FAIXA DE AVISO LGPD (sticky no topo)
+   Texto exato: &quot;🔒 LGPD: Currículos são dados pessoais. Use apenas IAs
+   aprovadas pela sua empresa para dados de candidatos. Esta ferramenta
+   gera prompts — ela NÃO processa CVs.&quot;
+
+2) CABEÇALHO
+   Título: &quot;📋 CV Ranking Prompt Builder&quot; (com gradiente dourado→oliva).
+   Subtítulo: &quot;Monte o prompt de ranking de currículos clicando nas
+   opções. Cole na IA depois.&quot;
+
+3) BARRA DE 5 ABAS (scroll horizontal no mobile)
+   ⚙️ Configuração | 💰 Custo | ⚖️ Pesos | 📊 Insights | ✨ Gerar
+   Aba ativa: texto dourado + borda inferior dourada.
+
+═══════════════════════════════════════════════════════════════════════
+ABA 1 — ⚙️ CONFIGURAÇÃO
+═══════════════════════════════════════════════════════════════════════
+Seção &quot;📝 Dados da Vaga&quot;:
+  - Título da Vaga * (input texto)
+  - Empresa / Contexto (input texto, opcional)
+  - Descrição da Vaga * (textarea, mín 100px altura)
+  - Localidade (input texto)
+  - Toggle &quot;Comentar localidade de cada CV na análise&quot;
+
+Seção &quot;🎯 Senioridade Alvo&quot;:
+  - Cartões selecionáveis (multi-seleção): Júnior, Pleno, Sênior, Arquiteto
+  - Cartão ativo: borda dourada + fundo rgba(217,164,65,.12)
+
+Seção &quot;🔧 Stack Mandatória&quot;:
+  Chips pré-populados (clicáveis para ativar/desativar): Python, PySpark,
+  Databricks, Delta Lake, SQL, Azure, AWS, GCP, Git, Lakehouse, ETL/ELT,
+  Spark, Docker, Terraform.
+  Chip ativo mandatório: fundo dourado, texto branco.
+  Input para adicionar chips personalizados.
+
+Seção &quot;💎 Stack Diferencial&quot;:
+  Chips pré-populados: Airflow, Kafka, Databricks Workflows, Structured
+  Streaming, CI/CD, Power BI, Tableau, Governança de Dados, Data Vault,
+  Unity Catalog, dbt, Snowflake, SAP, Kubernetes, PostgreSQL, MongoDB,
+  MLflow, Azure Data Factory, Redshift, BigQuery, Java, Scala.
+  Chip ativo diferencial: fundo oliva, texto branco.
+  Input para adicionar chips personalizados.
+
+Seção &quot;🌐 Idiomas&quot;:
+  - Inglês: seletor Diferencial / Obrigatório
+  - Campo texto opcional para outros idiomas
+
+═══════════════════════════════════════════════════════════════════════
+ABA 2 — 💰 CUSTO
+═══════════════════════════════════════════════════════════════════════
+  - Unidade de custo: hora / mês / salário (radio ou select)
+  - Faixa de orçamento (dois inputs numéricos: mínimo e máximo)
+  - Teto máximo aceitável (input numérico)
+  - Bloco explicativo sobre índice qualidade/custo, regra do teto, e
+    sinalização &quot;caro para o valor&quot; / &quot;custo a confirmar&quot;
+
+═══════════════════════════════════════════════════════════════════════
+ABA 3 — ⚖️ PESOS
+═══════════════════════════════════════════════════════════════════════
+7 sliders (input range 0–100), com valor exibido em %:
+  - Aderência Técnica (padrão 30)
+  - Experiência Relevante (padrão 20)
+  - Formação Acadêmica (padrão 8)
+  - Senioridade (padrão 12)
+  - Idiomas (padrão 2)
+  - Certificações (padrão 8)
+  - Custo-Benefício (padrão 20)
+
+Abaixo dos sliders, exibir a soma dos pesos:
+  - Soma = 100% → banner verde ✅ &quot;Soma: 100% — OK&quot;
+  - Soma ≠ 100% → banner âmbar ⚠ &quot;Soma: X% — ajuste para 100%&quot;
+
+Seção &quot;⭐ Escala de Pontuação&quot;:
+  Cartões selecionáveis (mono-seleção): 0-100, 1-10, A-F, Estrelas.
+
+═══════════════════════════════════════════════════════════════════════
+ABA 4 — 📊 INSIGHTS
+═══════════════════════════════════════════════════════════════════════
+Grade de toggles (2 colunas no desktop, 1 no mobile) para escolher quais
+insights incluir no prompt gerado:
+  ☑ Duplicatas (comparar por nome/email/telefone/histórico)
+  ☑ Análise por fornecedor
+  ☑ Custo do pool (soma, média, mediana, mín, máx)
+  ☑ Distribuição de senioridade
+  ☑ Distribuição de idiomas
+  ☑ Distribuição geográfica
+  ☑ Cobertura técnica por tecnologia mandatória
+  ☑ Ficha executiva do Top 3
+  ☑ Red flags (gaps, inconsistências, tecnologia sem evidência)
+  ☑ Formação (Graduação/Pós-MBA/Bootcamp/Autodidata)
+  ☑ Certificações relevantes
+
+Toggle final destacado:
+  ☑ Gerar dashboard HTML interativo ao final da análise?
+
+═══════════════════════════════════════════════════════════════════════
+ABA 5 — ✨ GERAR
+═══════════════════════════════════════════════════════════════════════
+1) Card de resumo do que foi configurado (título vaga, senioridade
+   selecionada, N tecnologias mandatórias/diferenciais, escala, unidade
+   de custo, faixa, teto, N insights selecionados, dashboard sim/não).
+
+2) Botões:
+   - &quot;✨ Gerar prompt&quot; (primário dourado)
+   - &quot;🔄 Resetar&quot; (secundário)
+
+3) Área de output com o prompt montado:
+   - Container com background --surface, borda, padding, radius
+   - Fonte JetBrains Mono, 0.75rem, line-height 1.7
+   - white-space: pre-wrap, word-break: break-word
+   - Altura máx 500px com scroll vertical
+
+4) Botões abaixo do output:
+   - &quot;📋 Copiar prompt&quot; (feedback &quot;Copiado ✓&quot; por 2s)
+   - &quot;💾 Baixar como .md&quot;
+
+Se pesos não somam 100%, ou campos obrigatórios vazios, avisar com
+warn-box âmbar em vez de gerar.
+
+═══════════════════════════════════════════════════════════════════════
+REGRAS DO PROMPT GERADO
+═══════════════════════════════════════════════════════════════════════
+O texto de prompt montado deve seguir esta estrutura (nesta ordem):
+
+1. Papel + contexto da vaga (título, empresa, descrição, localidade)
+2. Stack Tecnológico (mandatório + diferencial, incluindo os customizados)
+3. Critério de Idiomas (conforme configuração)
+4. Custo-Benefício (unidade, faixa, teto, regra do índice)
+5. Critérios de Pontuação e Pesos (tabela com os pesos configurados)
+6. REGRAS ANTI-INVENÇÃO (obrigatórias):
+   - Pontue apenas com base em informação explícita no CV
+   - NUNCA estime custo não informado (usar &quot;a confirmar&quot;)
+   - NUNCA presuma domínio de tecnologia por associação
+   - Duplicata dúbia → perguntar, não fundir
+   - Justificar cada nota em 1–2 linhas
+7. Imparcialidade — NÃO gerar estimativas demográficas
+8. Lotes grandes (&gt;20 CVs) → processar em blocos
+9. Análise consolidada com os insights SELECIONADOS pelo usuário
+10. Formato do output (Seções 1–5)
+11. Se dashboard ativado: incluir SEÇÃO 6 com especificação de dashboard
+    HTML interativo (perguntar antes se inclui contato/telefone/email)
+12. Instrução final: &quot;Comece pedindo os CVs e as informações de fornecedor
+    e custo por candidato.&quot;
+
+═══════════════════════════════════════════════════════════════════════
+RODAPÉ DA FERRAMENTA
+═══════════════════════════════════════════════════════════════════════
+&quot;CV Ranking Prompt Builder · Ferramenta pública · Nenhum dado é
+armazenado ou transmitido. Esta ferramenta gera texto de prompt — ela
+não processa, armazena ou analisa currículos.&quot;
+
+═══════════════════════════════════════════════════════════════════════
+
+Gere agora o arquivo HTML completo, com toda a estrutura, CSS, HTML e
+JavaScript em um único arquivo.</pre>
+        </div>
+        <button class="expand-toggle" data-scroll="scroll-buildermeta">Ver prompt completo ▾</button>
+      </div>
+    </div>
+  </details>
+
   <!-- ============ EM BREVE ============ -->
   <div class="soon">
-    <span class="t-num">05</span>
+    <span class="t-num">06</span>
     <p><b>Próxima trilha em breve</b>Siga no Instagram para saber quando sair.</p>
   </div>
 

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CV Ranking Prompt Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#16130F;--surface:#1E1A15;--card:#262019;--border:#3A3229;
+  --text:#EDE6DA;--muted:#A69B8A;--dim:#7A7164;
+  --accent:#D9A441;--accent2:#B8862C;--teal:#7E8B5E;--teal2:#657049;
+  --red:#C2543A;--amber:#D9A441;--green:#7E8B5E;
+  --radius:10px;--radius-sm:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+
+/* Privacy Banner */
+.privacy-banner{background:#1a140a;border-bottom:1px solid var(--accent);padding:10px 16px;font-size:.75rem;color:var(--muted);text-align:center;position:sticky;top:0;z-index:100}
+.privacy-banner strong{color:var(--accent)}
+
+/* Header */
+.header{text-align:center;padding:28px 16px 12px}
+.header h1{font-size:1.5rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header p{color:var(--muted);font-size:.85rem;margin-top:4px}
+
+/* Tabs */
+.tabs{display:flex;gap:2px;padding:0 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--border);margin-bottom:0}
+.tabs::-webkit-scrollbar{height:0}
+.tab{flex-shrink:0;padding:10px 16px;font-size:.8rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* Tab Content */
+.tab-content{display:none;padding:16px;max-width:800px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* Form Elements */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.field input[type=text],.field input[type=number],.field textarea,.field select{width:100%;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:.85rem;font-family:inherit;outline:none;transition:border-color .2s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent)}
+.field textarea{min-height:100px;resize:vertical}
+.field-row{display:flex;gap:12px;align-items:flex-end}
+.field-row .field{flex:1}
+.field-sm{max-width:160px}
+.hint{font-size:.7rem;color:var(--dim);margin-top:2px}
+
+/* Section headers */
+.section-title{font-size:.9rem;font-weight:600;color:var(--teal);margin:20px 0 10px;display:flex;align-items:center;gap:6px}
+.section-title:first-child{margin-top:0}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{padding:5px 12px;border-radius:16px;font-size:.75rem;font-weight:500;cursor:pointer;border:1px solid var(--border);color:var(--muted);transition:all .2s;user-select:none}
+.chip:hover{border-color:var(--dim);color:var(--text)}
+.chip.active-m{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.active-d{background:var(--teal2);border-color:var(--teal2);color:#fff}
+.chip-add{display:flex;gap:4px;align-items:center}
+.chip-add input{width:140px;padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:16px;color:var(--text);font-size:.75rem;outline:none}
+.chip-add button{padding:5px 12px;border-radius:16px;background:var(--border);border:none;color:var(--text);font-size:.75rem;cursor:pointer;font-weight:600}
+.chip-add button:hover{background:var(--dim)}
+
+/* Cards (selectable) */
+.cards{display:flex;flex-wrap:wrap;gap:8px}
+.sel-card{padding:10px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:.8rem;font-weight:500;color:var(--muted);transition:all .2s;text-align:center;min-width:80px;user-select:none}
+.sel-card:hover{border-color:var(--dim);color:var(--text)}
+.sel-card.active{border-color:var(--accent);background:rgba(217,164,65,.12);color:var(--accent)}
+
+/* Toggles */
+.toggle-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.85rem}
+.toggle-row+.toggle-row{border-top:1px solid var(--border)}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle .slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:.2s}
+.toggle .slider::before{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:var(--muted);left:3px;top:3px;transition:.2s}
+.toggle input:checked+.slider{background:var(--accent)}
+.toggle input:checked+.slider::before{transform:translateX(18px);background:#fff}
+.toggle-label{flex:1;color:var(--text)}
+.toggle-hint{font-size:.7rem;color:var(--dim)}
+
+/* Sliders */
+.slider-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.slider-row:last-child{border:none}
+.slider-name{width:140px;font-size:.8rem;font-weight:500;flex-shrink:0}
+.slider-track{flex:1}
+.slider-track input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none}
+.slider-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg)}
+.slider-val{width:44px;text-align:right;font-size:.85rem;font-weight:600;color:var(--accent);flex-shrink:0}
+.slider-val::after{content:'%'}
+.weight-sum{display:flex;align-items:center;gap:8px;padding:12px;border-radius:var(--radius);margin-top:12px;font-weight:600}
+.weight-sum.ok{background:rgba(126,139,94,.14);color:var(--green)}
+.weight-sum.warn{background:rgba(217,164,65,.12);color:var(--amber)}
+
+/* Insight toggles grid */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+@media(max-width:500px){.insight-grid{grid-template-columns:1fr}}
+
+/* Warning box */
+.warn-box{background:rgba(217,164,65,.08);border:1px solid rgba(217,164,65,.25);border-radius:var(--radius);padding:12px;font-size:.8rem;color:var(--amber);margin:12px 0}
+
+/* Summary */
+.summary{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px;border:1px solid var(--border)}
+.summary h3{font-size:.9rem;color:var(--teal);margin-bottom:8px}
+.summary-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.8rem;border-bottom:1px solid var(--border)}
+.summary-row:last-child{border:none}
+.summary-row .lbl{color:var(--muted)}
+.summary-row .val{font-weight:500}
+
+/* Buttons */
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.btn{padding:10px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:7px 14px;font-size:.78rem}
+.btn-success{background:var(--green);color:#fff}
+
+/* Prompt output */
+.prompt-output{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;font-family:'JetBrains Mono',monospace;font-size:.75rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto;margin-top:12px;color:var(--text)}
+.prompt-output::-webkit-scrollbar{width:6px}
+.prompt-output::-webkit-scrollbar-track{background:var(--surface)}
+.prompt-output::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* Disabled state */
+.disabled-section{opacity:.4;pointer-events:none}
+
+/* Footer */
+.footer{text-align:center;padding:20px;font-size:.7rem;color:var(--dim);border-top:1px solid var(--border);margin-top:32px}
+</style>
+</head>
+<body>
+
+<!-- Privacy Banner -->
+<div class="privacy-banner">
+  🔒 <strong>LGPD:</strong> Currículos são dados pessoais. Use apenas IAs aprovadas pela sua empresa para dados de candidatos. Esta ferramenta gera prompts — ela NÃO processa CVs.
+</div>
+
+<!-- Header -->
+<div class="header">
+  <h1>📋 CV Ranking Prompt Builder</h1>
+  <p>Monte o prompt de ranking de currículos clicando nas opções. Cole na IA depois.</p>
+</div>
+
+<!-- Tabs -->
+<div class="tabs" role="tablist">
+  <button class="tab active" onclick="switchTab(0)">⚙️ Configuração</button>
+  <button class="tab" onclick="switchTab(1)">💰 Custo</button>
+  <button class="tab" onclick="switchTab(2)">⚖️ Pesos</button>
+  <button class="tab" onclick="switchTab(3)">📊 Insights</button>
+  <button class="tab" onclick="switchTab(4)">✨ Gerar</button>
+</div>
+
+<!-- ===== TAB 0: CONFIG ===== -->
+<div class="tab-content active" id="tab0">
+  <div class="section-title">📝 Dados da Vaga</div>
+  <div class="field"><label>Título da Vaga *</label><input type="text" id="jobTitle" placeholder="Ex.: Engenheiro(a) de Dados Databricks" oninput="S.jobTitle=this.value"></div>
+  <div class="field"><label>Empresa / Contexto (opcional)</label><input type="text" id="company" placeholder="Ex.: Consultoria para setor de energia" oninput="S.company=this.value"></div>
+  <div class="field"><label>Descrição da Vaga *</label><textarea id="description" placeholder="Responsabilidades, requisitos, escopo do papel..." oninput="S.description=this.value"></textarea></div>
+  <div class="field-row">
+    <div class="field"><label>Localidade</label><input type="text" id="location" placeholder="Ex.: Remoto, Brasil" oninput="S.location=this.value"></div>
+  </div>
+  <div class="toggle-row"><label class="toggle"><input type="checkbox" id="commentLoc" onchange="S.commentLocation=this.checked"><span class="slider"></span></label><span class="toggle-label">Comentar localidade de cada CV na análise</span></div>
+
+  <div class="section-title">🎯 Senioridade Alvo</div>
+  <div class="cards" id="senCards"></div>
+  <p class="hint">Selecione uma ou mais faixas. A IA avaliará o alinhamento de cada candidato.</p>
+
+  <div class="section-title">🔧 Stack Mandatória</div>
+  <p class="hint">Tecnologias obrigatórias — ausência da maioria penaliza fortemente.</p>
+  <div class="chips" id="chipsMand"></div>
+  <div class="chip-add"><input type="text" id="addMand" placeholder="Adicionar..." onkeydown="if(event.key==='Enter')addChip('mand')"><button onclick="addChip('mand')">+</button></div>
+
+  <div class="section-title">💎 Stack Diferencial</div>
+  <p class="hint">Tecnologias desejáveis — somam pontos mas não eliminam.</p>
+  <div class="chips" id="chipsDiff"></div>
+  <div class="chip-add"><input type="text" id="addDiff" placeholder="Adicionar..." onkeydown="if(event.key==='Enter')addChip('diff')"><button onclick="addChip('diff')">+</button></div>
+
+  <div class="section-title">🌐 Idiomas</div>
+  <div class="toggle-row"><label class="toggle"><input type="checkbox" id="engMand" onchange="S.englishMandatory=this.checked"><span class="slider"></span></label><span class="toggle-label">Inglês é <strong>mandatório</strong> (ausência elimina)</span></div>
+  <div class="toggle-row"><label class="toggle"><input type="checkbox" id="engLevel" checked onchange="S.analyzeEnglishLevel=this.checked"><span class="slider"></span></label><span class="toggle-label">Analisar nível de inglês declarado</span></div>
+  <div class="toggle-row"><label class="toggle"><input type="checkbox" id="otherLangs" onchange="S.otherLanguages=this.checked"><span class="slider"></span></label><span class="toggle-label">Considerar outros idiomas como bônus</span></div>
+</div>
+
+<!-- ===== TAB 1: CUSTO ===== -->
+<div class="tab-content" id="tab1">
+  <div class="toggle-row" style="padding:12px 0;border-bottom:2px solid var(--border);margin-bottom:16px">
+    <label class="toggle"><input type="checkbox" id="costEnabled" checked onchange="toggleCost(this.checked)"><span class="slider"></span></label>
+    <span class="toggle-label" style="font-weight:600;font-size:.95rem">Ativar análise de custo-benefício</span>
+  </div>
+
+  <div id="costSection">
+    <div class="section-title">📏 Unidade de Custo</div>
+    <div class="cards" id="costUnitCards"></div>
+
+    <div class="section-title">💵 Orçamento</div>
+    <div class="field-row">
+      <div class="field field-sm"><label>Faixa mínima</label><input type="number" id="budgetMin" placeholder="100" oninput="S.budgetMin=this.value"></div>
+      <div class="field field-sm"><label>Faixa máxima</label><input type="number" id="budgetMax" placeholder="160" oninput="S.budgetMax=this.value"></div>
+      <div class="field field-sm"><label>Teto máximo</label><input type="number" id="ceiling" placeholder="180" oninput="S.ceiling=this.value"></div>
+    </div>
+
+    <div class="section-title">📐 Regras de Cálculo</div>
+    <div class="cards" id="costRuleCards"></div>
+
+    <div class="section-title">🔀 Opções de Ranking</div>
+    <div class="toggle-row"><label class="toggle"><input type="checkbox" id="dualRanking" checked onchange="S.dualRanking=this.checked"><span class="slider"></span></label><span class="toggle-label">Gerar ranking duplo (qualidade pura vs. custo-benefício)</span></div>
+    <div class="toggle-row"><label class="toggle"><input type="checkbox" id="flagExpensive" checked onchange="S.flagExpensive=this.checked"><span class="slider"></span></label><span class="toggle-label">Sinalizar "caro para o valor"</span></div>
+    <div class="toggle-row"><label class="toggle"><input type="checkbox" id="highlightCB" checked onchange="S.highlightBestCB=this.checked"><span class="slider"></span></label><span class="toggle-label">Destacar melhor custo-benefício</span></div>
+
+    <div class="warn-box">⚠️ Se os custos dos candidatos vierem em unidades diferentes (hora vs. mês, com/sem impostos), padronize antes de enviar à IA — ou instrua no prompt para que ela peça esclarecimento.</div>
+  </div>
+</div>
+
+<!-- ===== TAB 2: PESOS ===== -->
+<div class="tab-content" id="tab2">
+  <div class="section-title">⚖️ Pesos por Critério</div>
+  <p class="hint" style="margin-bottom:12px">Ajuste os pesos conforme a prioridade da vaga. A soma deve dar 100%.</p>
+  <div id="slidersArea"></div>
+  <div class="weight-sum" id="weightSum"></div>
+
+  <div class="section-title">📏 Escala de Pontuação</div>
+  <div class="cards" id="scaleCards"></div>
+</div>
+
+<!-- ===== TAB 3: INSIGHTS ===== -->
+<div class="tab-content" id="tab3">
+  <div class="section-title">📊 Insights do Pool</div>
+  <p class="hint" style="margin-bottom:12px">Selecione quais análises consolidadas a IA deve gerar sobre o lote de CVs.</p>
+  <div class="insight-grid" id="insightToggles"></div>
+
+  <div class="section-title">📄 Formato do Output</div>
+  <div class="cards" id="formatCards"></div>
+
+  <div class="section-title">📑 Seções do Output</div>
+  <div class="insight-grid" id="sectionToggles"></div>
+</div>
+
+<!-- ===== TAB 4: GERAR ===== -->
+<div class="tab-content" id="tab4">
+  <div class="summary" id="summaryBox"></div>
+
+  <div class="btn-group">
+    <button class="btn btn-primary" onclick="generatePrompt()">🚀 Gerar Prompt Completo</button>
+  </div>
+
+  <div class="btn-group" id="copyButtons" style="display:none">
+    <button class="btn btn-secondary btn-sm" onclick="copyPrompt('plain')">📋 Copiar Prompt</button>
+    <button class="btn btn-secondary btn-sm" onclick="copyPrompt('md')">📝 Copiar p/ GitHub (Markdown)</button>
+    <button class="btn btn-secondary btn-sm" onclick="copyBase()">📄 Copiar Prompt Base (sem config)</button>
+  </div>
+
+  <div id="promptArea" style="display:none">
+    <div class="prompt-output" id="promptOutput"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  CV Ranking Prompt Builder · Ferramenta pública · Nenhum dado é armazenado ou transmitido.<br>
+  Esta ferramenta gera texto de prompt — ela não processa, armazena ou analisa currículos.
+</div>
+
+<script>
+// ===== STATE =====
+const S = {
+  jobTitle:'', company:'', description:'', location:'', commentLocation:false,
+  mandatoryTech:[], differentialTech:[], seniorityTargets:[],
+  englishMandatory:false, analyzeEnglishLevel:true, otherLanguages:false,
+  costEnabled:true, costUnit:'hora', budgetMin:'', budgetMax:'', ceiling:'',
+  costRules:['qualidade-custo','penalizar-teto'],
+  dualRanking:true, flagExpensive:true, highlightBestCB:true,
+  weights:{aderencia:30,experiencia:20,formacao:8,senioridade:12,idiomas:2,certificacoes:8,custoBeneficio:20},
+  scoringScale:'0-100',
+  insights:{duplicatas:true,fornecedor:true,custoPool:true,senioridade:true,idiomas:true,geografia:true,coberturaTech:true,top3:true,redFlags:true,formacao:true,certificacoes:true},
+  outputFormat:'ambos',
+  outputSections:{tabelaRanking:true,rankingDuplo:true,fichaIndividual:true,dashboardInsights:true,recomendacaoFinal:true}
+};
+
+// ===== TABS =====
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.tab-content').forEach((t,j)=>t.classList.toggle('active',j===i));
+  if(i===4)renderSummary();
+}
+
+// ===== SENIORITY CARDS =====
+const senLevels=['Júnior','Pleno','Sênior','Arquiteto'];
+(function(){
+  const c=document.getElementById('senCards');
+  senLevels.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='sel-card';d.textContent=s;
+    d.onclick=()=>{d.classList.toggle('active');
+      S.seniorityTargets=Array.from(c.querySelectorAll('.active')).map(e=>e.textContent)};
+    c.appendChild(d);
+  });
+})();
+
+// ===== TECH CHIPS =====
+const defaultTechs={
+  mand:['Python','PySpark','Databricks','Delta Lake','SQL','Azure','AWS','GCP','Git','Lakehouse','ETL/ELT','Spark','Docker','Terraform'],
+  diff:['Airflow','Kafka','Databricks Workflows','Structured Streaming','CI/CD','Power BI','Tableau','Governança de Dados','Data Vault','Unity Catalog','dbt','Snowflake','SAP','Kubernetes','PostgreSQL','MongoDB','MLflow','Azure Data Factory','Redshift','BigQuery','Java','Scala']
+};
+
+function renderChips(id,group,techs){
+  const c=document.getElementById(id);c.innerHTML='';
+  techs.forEach(t=>{
+    const s=document.createElement('span');
+    s.className='chip'+(S[group+'Tech'].includes(t)?' active-'+(group==='mandatory'?'m':'d'):'');
+    s.textContent=t;
+    s.onclick=()=>{
+      const arr=group==='mandatory'?'mandatoryTech':'differentialTech';
+      const cls=group==='mandatory'?'active-m':'active-d';
+      if(S[arr].includes(t)){S[arr]=S[arr].filter(x=>x!==t);s.classList.remove(cls)}
+      else{S[arr].push(t);s.classList.add(cls)}
+    };
+    c.appendChild(s);
+  });
+}
+renderChips('chipsMand','mandatory',defaultTechs.mand);
+renderChips('chipsDiff','differential',defaultTechs.diff);
+
+function addChip(type){
+  const inp=document.getElementById(type==='mand'?'addMand':'addDiff');
+  const v=inp.value.trim();if(!v)return;inp.value='';
+  const group=type==='mand'?'mandatory':'differential';
+  const id=type==='mand'?'chipsMand':'chipsDiff';
+  const arr=group+'Tech';
+  if(!S[arr].includes(v))S[arr].push(v);
+  const allTechs=[...new Set([...defaultTechs[type==='mand'?'mand':'diff'],v])];
+  if(type==='mand')defaultTechs.mand=allTechs;else defaultTechs.diff=allTechs;
+  renderChips(id,group,allTechs);
+}
+
+// ===== COST =====
+const costUnits=[{id:'hora',label:'Valor/Hora'},{id:'mes-clt',label:'Salário Mês (CLT)'},{id:'mes-pj',label:'Mensal (PJ)'},{id:'fechado',label:'Valor Fechado'}];
+(function(){
+  const c=document.getElementById('costUnitCards');
+  costUnits.forEach(u=>{
+    const d=document.createElement('div');
+    d.className='sel-card'+(u.id==='hora'?' active':'');d.textContent=u.label;d.dataset.id=u.id;
+    d.onclick=()=>{c.querySelectorAll('.sel-card').forEach(e=>e.classList.remove('active'));d.classList.add('active');S.costUnit=u.id};
+    c.appendChild(d);
+  });
+})();
+
+const costRules=[{id:'qualidade-custo',label:'Índice Qualidade/Custo'},{id:'penalizar-teto',label:'Penalizar Acima do Teto'},{id:'faixas',label:'Faixas de Custo'}];
+(function(){
+  const c=document.getElementById('costRuleCards');
+  costRules.forEach(r=>{
+    const d=document.createElement('div');
+    d.className='sel-card'+(S.costRules.includes(r.id)?' active':'');d.textContent=r.label;d.dataset.id=r.id;
+    d.onclick=()=>{d.classList.toggle('active');
+      S.costRules=Array.from(c.querySelectorAll('.active')).map(e=>e.dataset.id)};
+    c.appendChild(d);
+  });
+})();
+
+function toggleCost(on){
+  S.costEnabled=on;
+  document.getElementById('costSection').classList.toggle('disabled-section',!on);
+  renderSliders();
+}
+
+// ===== WEIGHT SLIDERS =====
+const weightDefs=[
+  {id:'aderencia',label:'Aderência Técnica',default:30},
+  {id:'experiencia',label:'Experiência Relevante',default:20},
+  {id:'formacao',label:'Formação Acadêmica',default:8},
+  {id:'senioridade',label:'Senioridade',default:12},
+  {id:'idiomas',label:'Idiomas',default:2},
+  {id:'certificacoes',label:'Certificações',default:8},
+  {id:'custoBeneficio',label:'Custo-Benefício',default:20,costOnly:true}
+];
+
+function renderSliders(){
+  const box=document.getElementById('slidersArea');box.innerHTML='';
+  weightDefs.forEach(w=>{
+    if(w.costOnly&&!S.costEnabled)return;
+    const row=document.createElement('div');row.className='slider-row';
+    row.innerHTML=`<span class="slider-name">${w.label}</span>
+      <span class="slider-track"><input type="range" min="0" max="50" value="${S.weights[w.id]}" oninput="S.weights['${w.id}']=+this.value;document.getElementById('sv_${w.id}').textContent=this.value;updateWeightSum()"></span>
+      <span class="slider-val" id="sv_${w.id}">${S.weights[w.id]}</span>`;
+    box.appendChild(row);
+  });
+  updateWeightSum();
+}
+
+function updateWeightSum(){
+  let sum=0;
+  weightDefs.forEach(w=>{if(!(w.costOnly&&!S.costEnabled))sum+=S.weights[w.id]});
+  const el=document.getElementById('weightSum');
+  el.className='weight-sum '+(sum===100?'ok':'warn');
+  el.innerHTML=sum===100?'✅ Soma: '+sum+'% — OK':'⚠️ Soma: '+sum+'% — ajuste para fechar 100%';
+}
+renderSliders();
+
+// ===== SCALE CARDS =====
+const scales=['0–100','1–10','A–F','⭐ Estrelas'];
+(function(){
+  const c=document.getElementById('scaleCards');
+  scales.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='sel-card'+(s==='0–100'?' active':'');d.textContent=s;
+    d.onclick=()=>{c.querySelectorAll('.sel-card').forEach(e=>e.classList.remove('active'));d.classList.add('active');S.scoringScale=s};
+    c.appendChild(d);
+  });
+})();
+
+// ===== INSIGHTS TOGGLES =====
+const insightDefs=[
+  {id:'duplicatas',label:'🔍 Detecção de Duplicatas'},
+  {id:'fornecedor',label:'🏢 Análise por Fornecedor'},
+  {id:'custoPool',label:'💰 Custo do Pool'},
+  {id:'senioridade',label:'📊 Distribuição de Senioridade'},
+  {id:'idiomas',label:'🌐 Mapa de Idiomas'},
+  {id:'geografia',label:'📍 Distribuição Geográfica'},
+  {id:'coberturaTech',label:'🔧 Cobertura Técnica'},
+  {id:'top3',label:'🏆 Top 3 Candidatos'},
+  {id:'redFlags',label:'🚩 Red Flags'},
+  {id:'formacao',label:'🎓 Distribuição de Formação'},
+  {id:'certificacoes',label:'📜 Análise de Certificações'}
+];
+(function(){
+  const g=document.getElementById('insightToggles');
+  insightDefs.forEach(d=>{
+    const row=document.createElement('div');row.className='toggle-row';
+    row.innerHTML=`<label class="toggle"><input type="checkbox" ${S.insights[d.id]?'checked':''} onchange="S.insights['${d.id}']=this.checked"><span class="slider"></span></label><span class="toggle-label">${d.label}</span>`;
+    g.appendChild(row);
+  });
+})();
+
+// Output format
+const formats=[{id:'dashboard',label:'Dashboard HTML'},{id:'markdown',label:'Tabela/Fichas (Markdown)'},{id:'ambos',label:'Ambos'}];
+(function(){
+  const c=document.getElementById('formatCards');
+  formats.forEach(f=>{
+    const d=document.createElement('div');
+    d.className='sel-card'+(f.id==='ambos'?' active':'');d.textContent=f.label;d.dataset.id=f.id;
+    d.onclick=()=>{c.querySelectorAll('.sel-card').forEach(e=>e.classList.remove('active'));d.classList.add('active');S.outputFormat=f.id};
+    c.appendChild(d);
+  });
+})();
+
+// Output sections
+const sectionDefs=[
+  {id:'tabelaRanking',label:'📋 Tabela de Ranking'},
+  {id:'rankingDuplo',label:'🔀 Ranking Duplo (qualidade vs. CB)'},
+  {id:'fichaIndividual',label:'📝 Ficha Detalhada por Candidato'},
+  {id:'dashboardInsights',label:'📊 Dashboard de Insights (texto)'},
+  {id:'recomendacaoFinal',label:'✅ Recomendação Final'}
+];
+(function(){
+  const g=document.getElementById('sectionToggles');
+  sectionDefs.forEach(d=>{
+    const row=document.createElement('div');row.className='toggle-row';
+    row.innerHTML=`<label class="toggle"><input type="checkbox" ${S.outputSections[d.id]!==false?'checked':''} onchange="S.outputSections['${d.id}']=this.checked"><span class="slider"></span></label><span class="toggle-label">${d.label}</span>`;
+    g.appendChild(row);
+  });
+})();
+
+// ===== SUMMARY =====
+function renderSummary(){
+  const b=document.getElementById('summaryBox');
+  const insightCount=Object.values(S.insights).filter(Boolean).length;
+  let sum=0;weightDefs.forEach(w=>{if(!(w.costOnly&&!S.costEnabled))sum+=S.weights[w.id]});
+  const unitLabel=costUnits.find(u=>u.id===S.costUnit)?.label||S.costUnit;
+  b.innerHTML=`<h3>📋 Resumo da Configuração</h3>
+    <div class="summary-row"><span class="lbl">Vaga</span><span class="val">${S.jobTitle||'(não preenchido)'}</span></div>
+    <div class="summary-row"><span class="lbl">Empresa</span><span class="val">${S.company||'(não informada)'}</span></div>
+    <div class="summary-row"><span class="lbl">Localidade</span><span class="val">${S.location||'(não informada)'}</span></div>
+    <div class="summary-row"><span class="lbl">Senioridade</span><span class="val">${S.seniorityTargets.join(', ')||'(nenhuma selecionada)'}</span></div>
+    <div class="summary-row"><span class="lbl">Stack mandatória</span><span class="val">${S.mandatoryTech.length} tecnologias</span></div>
+    <div class="summary-row"><span class="lbl">Stack diferencial</span><span class="val">${S.differentialTech.length} tecnologias</span></div>
+    <div class="summary-row"><span class="lbl">Inglês</span><span class="val">${S.englishMandatory?'Mandatório':'Diferencial'}</span></div>
+    <div class="summary-row"><span class="lbl">Custo</span><span class="val">${S.costEnabled?unitLabel+' · Faixa '+(S.budgetMin||'?')+'–'+(S.budgetMax||'?')+' · Teto '+(S.ceiling||'?'):'Desativado'}</span></div>
+    <div class="summary-row"><span class="lbl">Pesos</span><span class="val">Soma ${sum}% ${sum===100?'✅':'⚠️'} · Escala ${S.scoringScale}</span></div>
+    <div class="summary-row"><span class="lbl">Insights</span><span class="val">${insightCount} de ${insightDefs.length} selecionados</span></div>
+    <div class="summary-row"><span class="lbl">Output</span><span class="val">${S.outputFormat==='ambos'?'Dashboard HTML + Markdown':S.outputFormat==='dashboard'?'Dashboard HTML':'Markdown'}</span></div>`;
+}
+
+// ===== PROMPT GENERATION =====
+function generatePrompt(){
+  const unitMap={'hora':'valor/hora','mes-clt':'salário mês CLT','mes-pj':'mensal PJ','fechado':'valor fechado'};
+  const unitLabel=unitMap[S.costUnit]||S.costUnit;
+  let p='';
+
+  // 1. Title & role
+  p+=`Você é um(a) recrutador(a) técnico(a) sênior. Analise, pontue e ranqueie um lote de currículos para a vaga abaixo${S.costEnabled?', equilibrando MÉRITO TÉCNICO e CUSTO-BENEFÍCIO,':','} gere insights consolidados sobre o pool e, ao final, produza o output no formato especificado.\n\n---\n\n`;
+
+  // 2. LGPD & non-discrimination
+  p+=`## LGPD, PRIVACIDADE E NÃO-DISCRIMINAÇÃO\n\n`;
+  p+=`🔒 **Confidencialidade e LGPD:** currículos são DADOS PESSOAIS de terceiros protegidos pela LGPD.\n`;
+  p+=`- **Finalidade limitada:** os dados devem ser usados exclusivamente para a avaliação de aderência à vaga descrita.\n`;
+  p+=`- **Base legal:** legítimo interesse do controlador (recrutamento) — Art. 7º, IX da LGPD.\n`;
+  p+=`- **Minimização:** extraia apenas informações relevantes para os critérios de avaliação.\n`;
+  p+=`- **Anonimização:** quando possível, prefira referências por iniciais ou código ao compartilhar resultados fora do time de recrutamento.\n`;
+  p+=`- **Decisão humana:** esta análise é um APOIO à decisão — a decisão final de contratação é sempre humana.\n\n`;
+  p+=`🚫 **Imparcialidade:** avalie exclusivamente competências, experiência e custo declarado. Desconsidere foto, nome, gênero, idade, raça, orientação, religião, origem e qualquer característica pessoal. NÃO gere estimativas demográficas sobre os candidatos — este processo avalia mérito, não perfil.\n\n---\n\n`;
+
+  // 3. Job context
+  p+=`## CONTEXTO DA VAGA\n\n`;
+  p+=`**Título:** ${S.jobTitle||'[Título da vaga]'}\n`;
+  if(S.company)p+=`**Empresa/Contexto:** ${S.company}\n`;
+  p+=`**Localidade:** ${S.location||'[Não especificada]'}\n`;
+  p+=`**Senioridade Alvo:** ${S.seniorityTargets.length?S.seniorityTargets.join(', '):'[Não especificada]'}\n\n`;
+  p+=`**Descrição:**\n${S.description||'[Cole aqui a descrição da vaga]'}\n\n---\n\n`;
+
+  // 4. Tech stack
+  p+=`## STACK TECNOLÓGICO\n\n`;
+  p+=`**Mandatório (peso alto; ausência da maioria = forte penalização):**\n${S.mandatoryTech.length?S.mandatoryTech.join(' · '):'[Liste as tecnologias obrigatórias]'}\n\n`;
+  p+=`**Diferenciais (agregam pontuação, não eliminam):**\n${S.differentialTech.length?S.differentialTech.join(' · '):'[Liste as tecnologias desejáveis]'}\n\n---\n\n`;
+
+  // 5. Languages
+  p+=`## CRITÉRIO DE IDIOMAS\n\n`;
+  if(S.englishMandatory){
+    p+=`- Inglês: **MANDATÓRIO — ausência ELIMINA o candidato.**\n`;
+  }else{
+    p+=`- Inglês: **DIFERENCIAL — soma pontos, ausência NÃO elimina.**\n`;
+  }
+  if(S.analyzeEnglishLevel){
+    p+=`- Registrar nível declarado (Básico/Intermediário/Avançado/Fluente/Nativo).\n`;
+  }
+  if(S.otherLanguages){
+    p+=`- Outros idiomas somam bônus quando declarados.\n`;
+  }
+  p+=`\n---\n\n`;
+
+  // 6. Cost-benefit
+  if(S.costEnabled){
+    p+=`## CUSTO-BENEFÍCIO\n\n`;
+    p+=`- Unidade de custo: **${unitLabel}**\n`;
+    if(S.budgetMin||S.budgetMax)p+=`- Orçamento / faixa alvo: ${S.budgetMin||'?'}–${S.budgetMax||'?'}\n`;
+    if(S.ceiling)p+=`- Teto máximo aceitável: ${S.ceiling}\n`;
+    if(S.costRules.includes('qualidade-custo')){
+      p+=`- Regra de cálculo: **ÍNDICE QUALIDADE/CUSTO** = pontuação de mérito (todos os critérios exceto custo) ÷ custo normalizado do candidato. Quanto maior o índice, melhor o custo-benefício.\n`;
+    }
+    if(S.costRules.includes('penalizar-teto')){
+      p+=`- Um candidato excelente com custo muito acima do teto NÃO deve liderar o ranking final.\n`;
+      p+=`- Candidatos **acima do teto**: sinalize como desclassificados por custo e rebaixe no ranking final.\n`;
+    }
+    if(S.flagExpensive)p+=`- Sinalize explicitamente candidatos "CAROS PARA O VALOR" (alta qualidade, custo desproporcional).\n`;
+    if(S.highlightBestCB)p+=`- Destaque o candidato de MELHOR CUSTO-BENEFÍCIO (nem sempre o mais barato nem o de maior mérito absoluto).\n`;
+    p+=`- Candidatos SEM custo informado: sinalize "custo a confirmar", ranqueie o mérito normalmente e não os beneficie nem prejudique no critério de custo. Se depois for fornecida uma planilha/lista de custos, reconcilie e recalcule.\n`;
+    p+=`- **Nunca estime ou deduza o custo de um candidato** a partir de pretensão salarial, senioridade ou mercado. Custo não informado = "a confirmar".\n`;
+    p+=`- Se custos vierem em unidades diferentes (hora vs. mês, com/sem impostos), pergunte antes de comparar.\n`;
+    p+=`\n---\n\n`;
+  }
+
+  // 7. Scoring criteria
+  p+=`## CRITÉRIOS DE PONTUAÇÃO E PESOS\n\n`;
+  p+=`Escala **${S.scoringScale}**.\n\n`;
+  p+=`| Critério | Peso |\n|---|---|\n`;
+  const activeWeights=weightDefs.filter(w=>!(w.costOnly&&!S.costEnabled));
+  activeWeights.forEach(w=>p+=`| ${w.label} | ${S.weights[w.id]}% |\n`);
+  const sum=activeWeights.reduce((a,w)=>a+S.weights[w.id],0);
+  p+=`| **TOTAL** | **${sum}%** |\n\n`;
+
+  p+=`**Instruções por critério:**\n`;
+  p+=`1. **Aderência Técnica:** quantas tecnologias mandatórias domina, profundidade e tempo. Diferenciais somam bônus. Penalize forte quem tem <60% do stack mandatório.\n`;
+  p+=`2. **Experiência:** anos totais vs. específicos, porte das empresas, projetos similares e impacto mensurado.\n`;
+  p+=`3. **Formação:** graduação na área, pós/MBA, cursos técnicos. Bootcamps válidos se comprovados.\n`;
+  p+=`4. **Senioridade:** alinhamento ao alvo. **Avalie pela progressão real (tempo total, tempo na stack, escopo hands-on × gestão × arquitetura), NÃO pelo auto-título.** Overqualified reduz nota. Marque divergências entre título declarado e perfil real.\n`;
+  p+=`5. **Idiomas:** fluente = máximo; intermediário = 70%; básico = 30%; sem inglês = 0${S.englishMandatory?' (ELIMINA)':' (não elimina)'}. Outros idiomas somam bônus.\n`;
+  p+=`6. **Certificações:** da stack e de cloud. Expiradas valem 50%.\n`;
+  if(S.costEnabled)p+=`7. **Custo-benefício:** índice qualidade/custo conforme regra acima.\n`;
+  p+=`\n---\n\n`;
+
+  // Anti-invention rules
+  p+=`## REGRAS ANTI-INVENÇÃO (OBRIGATÓRIAS)\n\n`;
+  p+=`- Pontue APENAS com base em informação explícita no CV. Campo sem informação = nota ZERO no critério (exceto custo, ver regra própria).\n`;
+  p+=`- Nunca presuma domínio de uma tecnologia por associação ("trabalhou com Spark, então deve saber Databricks"). Tecnologia sem evidência = não conta.\n`;
+  p+=`- Se dois CVs parecerem da mesma pessoa mas você não tiver certeza, sinalize como "possível duplicata" e pergunte — não funda os registros por conta própria.\n`;
+  p+=`- Justifique cada nota em 1–2 linhas citando a evidência do CV.\n\n`;
+
+  // Large batches
+  p+=`## LOTES GRANDES\n\nSe o lote tiver mais de ~20 currículos, processe em blocos: analise e pontue cada bloco, mantenha uma tabela-resumo acumulada, e só gere os rankings finais após o último bloco.\n\n---\n\n`;
+
+  // 8. Insights
+  const selectedInsights=insightDefs.filter(d=>S.insights[d.id]);
+  if(selectedInsights.length>0){
+    p+=`## ANÁLISE DO BATCH — INSIGHTS CONSOLIDADOS\n\nApós ranquear individualmente, gere:\n\n`;
+    let n=1;
+    if(S.insights.duplicatas){p+=`${n}. **Duplicatas:** compare por nome, e-mail, telefone e histórico (não só nome). Liste fornecedores de cada; se custos divergirem, recomende o menor custo.\n`;n++}
+    if(S.insights.fornecedor){p+=`${n}. **Por fornecedor:** qtd de CVs, aderência média, senioridade média, custo médio, ranking dos fornecedores por custo-benefício.\n`;n++}
+    if(S.insights.custoPool){p+=`${n}. **Custo do pool:** soma, média, mediana, mínimo, máximo. Outliers. Sem custo. Compare com orçamento e teto.\n`;n++}
+    if(S.insights.senioridade){p+=`${n}. **Senioridade:** qtd e % por faixa, com observação de alinhamento ao alvo (classificação por critérios reais).\n`;n++}
+    if(S.insights.idiomas){p+=`${n}. **Idiomas:** com/sem inglês, distribuição por nível, %.\n`;n++}
+    if(S.insights.geografia){p+=`${n}. **Geografia:** cidade/estado; top 5; remoto/presencial/híbrido.\n`;n++}
+    if(S.insights.coberturaTech){p+=`${n}. **Cobertura técnica:** para cada mandatória, quantos possuem; tabela Tecnologia × % do pool; identifique a mais escassa.\n`;n++}
+    if(S.insights.top3){p+=`${n}. **Top 3:** ficha executiva (nome, pontuação, custo, diferenciais, pontos de atenção, recomendação sim/não/talvez).\n`;n++}
+    if(S.insights.redFlags){p+=`${n}. **Red flags:** gaps >6 meses sem explicação, experiência inflada ou inconsistente, salto de senioridade, CV genérico, tecnologias sem evidência.\n`;n++}
+    if(S.insights.formacao){p+=`${n}. **Formação:** distribuição por Graduação/Pós-MBA/Bootcamp/Autodidata, %.\n`;n++}
+    if(S.insights.certificacoes){p+=`${n}. **Certificações:** liste as relevantes, quem possui e total.\n`;n++}
+    p+=`\n---\n\n`;
+  }
+
+  // 9. Output format
+  p+=`## FORMATO DO OUTPUT\n\nEstruture nesta ordem:\n\n`;
+  let secN=1;
+  if(S.outputSections.tabelaRanking){
+    p+=`**SEÇÃO ${secN} — TABELA DE RANKING** com todos os candidatos ordenados por Score Final (maior→menor): Posição | Nome | Fornecedor | Score Mérito | Custo | Custo-Benefício | Score Final | Senioridade | Inglês | Localidade | Principal Diferencial.\n\n`;secN++;
+  }
+  if(S.outputSections.rankingDuplo&&S.costEnabled&&S.dualRanking){
+    p+=`**SEÇÃO ${secN} — RANKING DUPLO:** (1) por QUALIDADE PURA (ignora custo) e (2) por CUSTO-BENEFÍCIO. Comente quem cai muito no de custo-benefício ("caro para o valor").\n\n`;secN++;
+  }
+  if(S.outputSections.fichaIndividual){
+    p+=`**SEÇÃO ${secN} — FICHA DETALHADA** por candidato: score por critério${S.costEnabled?' (incluindo custo-benefício e custo declarado)':''}, cada nota justificada em 1–2 linhas.\n\n`;secN++;
+  }
+  if(S.outputSections.dashboardInsights){
+    p+=`**SEÇÃO ${secN} — DASHBOARD DE INSIGHTS** (texto) com as métricas consolidadas do pool.\n\n`;secN++;
+  }
+  if(S.outputSections.recomendacaoFinal){
+    p+=`**SEÇÃO ${secN} — RECOMENDAÇÃO FINAL:** candidatos a entrevistar em ordem de prioridade, equilibrando qualidade${S.costEnabled?' e custo':''}, justificativa 1–2 linhas cada.\n\n`;secN++;
+  }
+
+  // Dashboard HTML instructions
+  if(S.outputFormat==='dashboard'||S.outputFormat==='ambos'){
+    p+=`**SEÇÃO ${secN} — DASHBOARD HTML INTERATIVO:**\n`;
+    p+=`Gere um arquivo .html standalone, pronto para abrir no navegador.\n`;
+    p+=`- Arquivo único, autocontido. Dados dos candidatos embutidos inline em objeto JS.\n`;
+    p+=`- Gráficos com Chart.js (via CDN).\n`;
+    p+=`- **Nunca usar localStorage/sessionStorage.** Estado só em variáveis JS.\n`;
+    p+=`- Tema claro/escuro automático via prefers-color-scheme.\n`;
+    p+=`- Responsivo (desktop e celular). Paleta sóbria/executiva.\n`;
+    p+=`- Conteúdo: cabeçalho com resumo, cards de métricas, rankings rápidos por critério, quadros por senioridade, gráfico mérito × custo (scatter), cobertura técnica (barras) e senioridade (donut), tabela completa com filtros e ordenação, rodapé.\n`;
+    p+=`- Salvar o .html e disponibilizar para download.\n\n`;
+    secN++;
+  }
+  p+=`---\n\n`;
+
+  // 10. Operational instructions
+  p+=`## INSTRUÇÕES OPERACIONAIS\n\n`;
+  p+=`1. Leia TODOS os CVs antes de pontuar.\n`;
+  p+=`2. Aplique as REGRAS ANTI-INVENÇÃO em todas as notas.\n`;
+  p+=`3. Duplicatas confirmadas: mantenha UMA entrada (a versão mais completa); registre os fornecedores; se custos divergirem, recomende o mais barato.\n`;
+  p+=`4. Consistência: mesmos critérios e pesos para todos.\n`;
+  p+=`5. Senioridade sempre por progressão real, não auto-título.\n`;
+  if(S.costEnabled)p+=`6. Se surgir planilha de custos depois, reconcilie e recalcule custo-benefício, scores e métricas do pool.\n`;
+  p+=`${S.costEnabled?'7':'6'}. Se o pool tiver qualidade baixa (<30% com score >60), sinalize claramente — recomendar entrevistas de um pool fraco sem avisar é desserviço.\n\n`;
+
+  // 11. How to use
+  p+=`---\n\n## COMO USAR\n\n`;
+  p+=`1. Cole este prompt com os campos preenchidos.\n`;
+  p+=`2. Envie os CVs (anexos ou texto).\n`;
+  if(S.costEnabled)p+=`3. Informe fornecedor e custo por candidato (ou planilha depois).\n`;
+  p+=`${S.costEnabled?'4':'3'}. Receba a análise completa.\n\n`;
+  p+=`🔒 **Lembrete LGPD:** currículos são dados pessoais. Use exclusivamente a IA aprovada pela sua empresa. Nunca cole CVs em ferramentas públicas sem autorização. O output gerado pode conter dados pessoais — trate com o mesmo cuidado que os CVs originais.`;
+
+  // Display
+  document.getElementById('promptOutput').textContent=p;
+  document.getElementById('promptArea').style.display='block';
+  document.getElementById('copyButtons').style.display='flex';
+  window._generatedPrompt=p;
+}
+
+// ===== COPY =====
+async function copyPrompt(format){
+  const text=format==='md'?('```\n'+window._generatedPrompt+'\n```'):window._generatedPrompt;
+  try{
+    await navigator.clipboard.writeText(text);
+    const btns=document.querySelectorAll('#copyButtons .btn');
+    const btn=format==='md'?btns[1]:btns[0];
+    const orig=btn.textContent;btn.textContent='✅ Copiado!';btn.classList.add('btn-success');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('btn-success')},2000);
+  }catch(e){alert('Erro ao copiar. Selecione o texto manualmente.')}
+}
+
+async function copyBase(){
+  const base=`Você é um(a) recrutador(a) técnico(a) sênior. Analise, pontue e ranqueie um lote de currículos para a vaga abaixo, equilibrando MÉRITO TÉCNICO e CUSTO-BENEFÍCIO, gere insights consolidados e produza o output no formato especificado.
+
+---
+
+## CONTEXTO DA VAGA
+
+**Título:** [Título da vaga]
+**Empresa/Contexto:** [Empresa ou área contratante]
+**Localidade:** [Cidade/estado, remoto ou híbrido]
+**Senioridade Alvo:** [Ex.: Pleno, Sênior, Arquiteto]
+
+**Descrição:**
+[Cole aqui a descrição da vaga]
+
+---
+
+## STACK TECNOLÓGICO
+
+**Mandatório:** [Liste as tecnologias obrigatórias, separadas por ·]
+**Diferenciais:** [Liste as tecnologias desejáveis, separadas por ·]
+
+---
+
+## CRITÉRIO DE IDIOMAS
+- Inglês: DIFERENCIAL — soma pontos, ausência NÃO elimina.
+- Registrar nível declarado.
+
+---
+
+## CUSTO-BENEFÍCIO
+- Unidade de custo: [hora / mês / salário]
+- Orçamento / faixa alvo: [ex.: 100–160]
+- Teto máximo aceitável: [ex.: 180]
+- Candidatos acima do teto: desclassificados.
+- Sem custo informado: "a confirmar".
+
+---
+
+[Preencha os pesos, insights e formato desejado, ou use o CV Ranking Prompt Builder para configurar visualmente.]`;
+
+  try{
+    await navigator.clipboard.writeText(base);
+    const btn=document.querySelectorAll('#copyButtons .btn')[2];
+    const orig=btn.textContent;btn.textContent='✅ Copiado!';btn.classList.add('btn-success');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('btn-success')},2000);
+  }catch(e){alert('Erro ao copiar.')}
+}
+</script>
+</body>
+</html>
