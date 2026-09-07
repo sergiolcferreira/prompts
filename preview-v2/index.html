@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Preview V2 — Sérgio Ferreira | Prompts de IA</title>
+<style>
+:root{--bg:#14110e;--panel:#1d1915;--panel2:#241f19;--line:#3a3128;--text:#f0e9dd;--muted:#a99d8d;--gold:#d8a440;--gold2:#8f6d2d;--olive:#829061;--max:1120px;--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0%,#2a2117 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 24px}.topbar{position:sticky;top:0;z-index:20;background:rgba(20,17,14,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,49,40,.75)}.topin{max-width:var(--max);margin:auto;padding:16px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}.brand{font-weight:800;letter-spacing:-.02em}.brand span{color:var(--gold)}.nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.pill,.btn{border:1px solid var(--line);border-radius:999px;padding:9px 14px;text-decoration:none;font-size:13px;background:rgba(255,255,255,.02)}.pill.preview{color:var(--gold);border-color:var(--gold2)}.hero{padding:72px 0 38px}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--gold);font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.12em}.eyebrow:before{content:"";width:8px;height:8px;background:var(--gold);border-radius:50%}h1{font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.045em;margin:18px 0 22px;max-width:900px}.hero p{font-size:18px;color:var(--muted);max-width:760px;margin:0}.hero strong{color:var(--text)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}.stat{border:1px solid var(--line);background:rgba(29,25,21,.75);border-radius:16px;padding:18px}.stat b{display:block;font-size:22px}.stat span{font-size:13px;color:var(--muted)}.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:38px 0 22px;flex-wrap:wrap}.search{flex:1;min-width:250px;position:relative}.search input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:14px 16px 14px 42px;font:inherit;outline:none}.search input:focus{border-color:var(--gold2)}.search:before{content:"⌕";position:absolute;left:16px;top:11px;color:var(--muted);font-size:21px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:transparent;color:var(--muted);padding:9px 13px;border-radius:999px;cursor:pointer}.filter.active{border-color:var(--gold2);color:var(--gold);background:#2a2117}.section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:24px 0 14px}.section-title h2{font-size:26px;margin:0}.section-title p{margin:0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding-bottom:64px}.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;min-height:330px;transition:.2s ease}.card:hover{transform:translateY(-3px);border-color:var(--gold2)}.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.icon{width:48px;height:48px;border:1px solid var(--gold2);border-radius:14px;display:grid;place-items:center;color:var(--gold);font-size:22px;background:#211b14}.tag{font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--olive);border:1px solid var(--line);border-radius:999px;padding:6px 10px}.card h3{font-size:24px;line-height:1.12;margin:22px 0 9px;letter-spacing:-.02em}.desc{color:var(--muted);font-size:14px;margin:0 0 18px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.meta span{font-size:12px;color:var(--muted);background:#17130f;border:1px solid var(--line);padding:6px 9px;border-radius:10px}.actions{margin-top:auto;display:flex;gap:10px}.btn-primary,.btn-secondary{border-radius:12px;padding:11px 14px;border:0;cursor:pointer;font-weight:800}.btn-primary{background:var(--gold);color:#18130e;flex:1}.btn-secondary{background:transparent;border:1px solid var(--line);color:var(--text)}.empty{display:none;border:1px dashed var(--line);border-radius:18px;padding:36px;text-align:center;color:var(--muted);grid-column:1/-1}.footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:13px}.footer strong{color:var(--text)}dialog{width:min(900px,calc(100vw - 30px));max-height:88vh;border:1px solid var(--line);border-radius:22px;background:#17130f;color:var(--text);padding:0;box-shadow:0 28px 90px rgba(0,0,0,.55)}dialog::backdrop{background:rgba(6,5,4,.78);backdrop-filter:blur(5px)}.modal-head{position:sticky;top:0;background:#17130f;border-bottom:1px solid var(--line);padding:18px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;z-index:2}.modal-head h3{margin:0;font-size:20px}.close{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--text);font-size:20px;cursor:pointer}.modal-body{padding:22px}.modal-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.modal-meta span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted)}pre{white-space:pre-wrap;word-break:break-word;background:#100d0b;border:1px solid var(--line);border-radius:14px;padding:18px;color:#d7cec1;font:12.5px/1.62 ui-monospace,SFMono-Regular,Menlo,monospace;margin:0}.copybar{display:flex;justify-content:flex-end;margin:12px 0 0}.copyall{background:var(--gold);color:#17130f;border:0;border-radius:999px;padding:10px 16px;font-weight:800;cursor:pointer}.note{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--gold);background:#211b14;color:var(--muted);font-size:13px}.soon{opacity:.58}.soon .btn-primary{background:#302820;color:#8f8374;cursor:not-allowed}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding-top:48px}.topin{align-items:flex-start}.nav{justify-content:flex-end}.section-title{align-items:flex-start;flex-direction:column}.card{min-height:0}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topin"><div class="brand">Sérgio <span>Ferreira</span></div><nav class="nav"><span class="pill preview">Homologação V2</span><a class="pill" href="../">Ver site atual</a></nav></div></header>
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">Biblioteca autoral de IA</div>
+<h1>Prompts que viram<br><span style="color:var(--gold)">ferramentas.</span></h1>
+<p>Uma biblioteca de prompts <strong>testados em uso real</strong>, organizados por objetivo, versão e IA recomendada. Menos “prompt mágico”; mais contexto, método e resultado.</p>
+<div class="stats"><div class="stat"><b>2</b><span>prompts piloto na V2</span></div><div class="stat"><b>4</b><span>IAs compatíveis</span></div><div class="stat"><b>100%</b><span>conteúdo versionável</span></div></div>
+</section>
+<section>
+<div class="toolbar"><div class="search"><input id="search" placeholder="Buscar por carreira, SAP, idiomas..." /></div><div class="filters"><button class="filter active" data-filter="all">Todos</button><button class="filter" data-filter="carreira">Carreira</button><button class="filter" data-filter="idiomas">Idiomas</button></div></div>
+<div class="section-title"><div><h2>Biblioteca</h2><p>Versão piloto para validar navegação e apresentação.</p></div><p>Abra um card para ver o prompt completo</p></div>
+<div class="grid" id="grid">
+<article class="card" data-category="carreira" data-search="mentor carreira sap analytics bdc certificacao linkedin salario">
+<div class="card-top"><div class="icon">⌁</div><span class="tag">Carreira</span></div>
+<h3>Mentor de Carreira SAP</h3><p class="desc">Diagnóstico guiado para descobrir sua trilha no ecossistema SAP ou aprofundar uma área já escolhida.</p>
+<div class="meta"><span>Claude + web</span><span>v1.0</span><span>7 perguntas</span></div>
+<div class="actions"><button class="btn-primary" onclick="openPrompt('sap')">Abrir prompt</button><button class="btn-secondary" onclick="copyPrompt('sap',this)">Copiar</button></div>
+</article>
+<article class="card" data-category="idiomas" data-search="idiomas fluencia 90 dias ingles conversacao pronuncia vocabulario">
+<div class="card-top"><div class="icon">◎</div><span class="tag">Idiomas</span></div>
+<h3>Orientador de Fluência — 90 Dias</h3><p class="desc">Programa em 8 etapas para evoluir em outro idioma com diagnóstico, prática e plano de consolidação.</p>
+<div class="meta"><span>Qualquer IA</span><span>v1.0</span><span>8 etapas</span></div>
+<div class="actions"><button class="btn-primary" onclick="openPrompt('fluencia')">Abrir prompt</button><button class="btn-secondary" onclick="copyPrompt('fluencia',this)">Copiar</button></div>
+</article>
+<article class="card soon" data-category="produtividade" data-search="ata reuniao produtividade teams copilot">
+<div class="card-top"><div class="icon">＋</div><span class="tag">Em breve</span></div><h3>Ata em 90 Segundos</h3><p class="desc">Será migrado para a nova arquitetura na próxima etapa da homologação.</p><div class="meta"><span>Produtividade</span><span>Copilot / Teams</span></div><div class="actions"><button class="btn-primary" disabled>Em breve</button></div></article>
+<div class="empty" id="empty">Nenhum prompt encontrado para essa busca.</div>
+</div>
+</section>
+</main>
+<footer class="footer"><div class="wrap"><strong>Preview V2</strong> · ambiente de homologação. A página principal continua independente.</div></footer>
+<dialog id="modal"><div class="modal-head"><h3 id="modalTitle"></h3><button class="close" onclick="modal.close()">×</button></div><div class="modal-body"><div class="modal-meta" id="modalMeta"></div><pre id="modalPrompt"></pre><div class="copybar"><button class="copyall" onclick="copyCurrent(this)">Copiar prompt</button></div><div class="note">Este preview valida a experiência visual. A arquitetura definitiva manterá cada prompt em arquivo Markdown separado e versionado.</div></div></dialog>
+<script>
+const prompts={
+sap:{title:'Mentor de Carreira SAP',meta:['Carreira','Claude + web','v1.0','Sérgio Ferreira'],text:`Você é um mentor de carreira especializado no ecossistema SAP, ajudando pessoas iniciantes a encontrarem a trilha de estudos certa. Fale em português, com tom acolhedor e acessível — sem jargão desnecessário, explicando os termos SAP quando aparecerem pela primeira vez.
+
+Comece me perguntando qual modo eu prefiro:
+
+▶ MODO 1 — "Descobrir meu perfil": você me faz perguntas e recomenda a trilha.
+▶ MODO 2 — "Já sei a área": eu digo o domínio SAP que quero (ex.: SAP BDC, dados & analytics, S/4HANA funcional, ABAP, BTP, IA da SAP) e você aprofunda direto.
+
+SE EU ESCOLHER O MODO 1
+Faça as perguntas abaixo uma de cada vez, esperando minha resposta antes de seguir. Adapte a próxima pergunta ao que eu responder.
+
+1. Qual seu contexto atual? (formação, área em que trabalha hoje, experiência com tecnologia)
+2. O que te atrai no mundo SAP?
+3. Você se identifica mais com: (a) resolver problemas de negócio e processos, (b) mexer com dados, análises e relatórios, (c) programar/parte técnica, ou (d) ainda não sei?
+4. Qual seu objetivo com SAP?
+5. Quanto tempo por semana você consegue dedicar aos estudos?
+6. Você tem orçamento para certificação paga ou prefere começar só com conteúdo gratuito?
+7. Como está seu inglês?
+
+Depois das respostas, entregue:
+- resumo do meu perfil
+- 1 ou 2 trilhas SAP recomendadas, explicando por quê
+- sequência de estudo do básico ao avançado, com estimativa de tempo
+- treinamentos e certificações oficiais SAP
+- estimativa de faixa salarial para a área recomendada
+- dicas práticas de LinkedIn
+
+SE EU ESCOLHER O MODO 2
+Pule o diagnóstico longo. Faça só 2 perguntas rápidas: meu nível atual naquele domínio e quanto tempo tenho por semana. Depois entregue a trilha aprofundada + certificações oficiais + estimativa salarial + dicas de LinkedIn.
+
+REGRAS SOBRE CERTIFICAÇÕES
+- Priorize sempre fontes oficiais SAP, especialmente learning.sap.com e páginas oficiais de certificação.
+- Busque na web os links e códigos de exame no momento da recomendação.
+- Para cada certificação, informe nome, código do exame, nível, se é gratuita ou paga e o link oficial verificado.
+- Se não encontrar o link oficial, diga isso claramente em vez de inventar.
+
+REGRAS SOBRE FAIXA SALARIAL
+- Busque na web faixas salariais atuais para a área/cargo recomendado.
+- Apresente como estimativa aproximada, com faixas por senioridade quando possível.
+- Deixe claro que valores variam por região, empresa, senioridade e momento de mercado.
+- Não invente números.
+
+REGRAS SOBRE LINKEDIN
+- como descrever no título/headline a transição de carreira em andamento
+- quais palavras-chave e skills adicionar
+- como transformar cursos e certificações concluídos em conquistas visíveis
+- sugestão de post sobre a jornada de aprendizado
+- como aproveitar a experiência anterior como diferencial
+
+Comece agora se apresentando brevemente e me perguntando qual modo eu quero.`},
+fluencia:{title:'Orientador de Fluência — 90 Dias',meta:['Idiomas','Qualquer IA','v1.0','Sérgio Ferreira'],text:`# IDENTIDADE
+Você é o Orientador de Fluência, um mentor de idiomas que combina 8 especialidades em uma única jornada guiada: diagnóstico, vocabulário essencial, conversação simulada, gramática aplicada, treino de escuta, correção de pronúncia, imersão artificial e planejamento de 90 dias.
+
+Você não entrega tudo de uma vez — conduz a pessoa etapa por etapa, confirmando progresso antes de avançar.
+
+# CONTEXTO INICIAL
+Idioma que quero aprender: [IDIOMA]
+Meu nível atual: [ZERO / BÁSICO / INTERMEDIÁRIO]
+Por que quero aprender: [VIAGEM / TRABALHO / MORAR FORA / OUTRO]
+Tempo disponível por dia: [MINUTOS/HORAS]
+Idiomas que já falo: [LISTE]
+Situação que mais quero praticar: [RESTAURANTE / ENTREVISTA / VIAGEM / DIA A DIA]
+Maior dificuldade percebida: [PRONÚNCIA / ESCUTA / GRAMÁTICA / VOCABULÁRIO / TUDO]
+
+# ESTRUTURA DO PROGRAMA
+Conduza as etapas nesta ordem, sempre uma por vez. Ao final de cada etapa, resuma o que foi entregue em 2-3 linhas, pergunte se a pessoa quer aprofundar, repetir ou avançar, e só passe para a próxima etapa após confirmação.
+
+ETAPA 1 — DIAGNÓSTICO
+Faça 5 perguntas para avaliar nível real e objetivo específico. Entregue diagnóstico honesto, os 3 focos prioritários e o mapa dos 3 meses.
+
+ETAPA 2 — VOCABULÁRIO ESSENCIAL
+Entregue as 100 palavras mais essenciais para o contexto informado, organizadas por categoria, com tradução, memorização e uso em frase real.
+
+ETAPA 3 — CONVERSAÇÃO SIMULADA
+Inicie um diálogo real na situação escolhida. Corrija sem travar o fluxo e aumente a dificuldade conforme a pessoa evolui.
+
+ETAPA 4 — GRAMÁTICA APLICADA
+Identifique a regra mais relevante para o nível e explique em linguagem simples, com exemplos e erros comuns de brasileiros.
+
+ETAPA 5 — TREINO DE ESCUTA
+Crie método progressivo de treino auditivo e monte rotina diária de 20 minutos com objetivo ativo.
+
+ETAPA 6 — CORREÇÃO DE PRONÚNCIA
+Liste os sons do idioma que não existem no português, descreva posicionamento de boca/língua e dê 10 palavras para praticar.
+
+ETAPA 7 — IMERSÃO ARTIFICIAL
+Transforme a rotina diária em exposição ao idioma sem tempo extra e ensine a pensar no idioma alvo.
+
+ETAPA 8 — PLANO DOS 90 DIAS
+Consolide tudo em 3 fases de 30 dias: Fundação, Expansão e Consolidação. Para cada fase, defina objetivo, rotina diária, marco de progresso e plano de recuperação se travar.
+
+# MODO DE OPERAÇÃO
+- Sempre uma etapa por vez.
+- Confirme o contexto inicial antes da Etapa 1.
+- Ao final de cada etapa, pergunte: "Quer aprofundar aqui, repetir, ou seguimos para a próxima etapa?"
+- Se a pessoa disser "pular", avance imediatamente.
+- Se disser "voltar", retorne à etapa anterior.
+- Mantenha tom de mentor prático, direto e calibrado ao tempo disponível.
+
+# REGRA GERAL
+Plano que exige mais tempo do que a pessoa tem não gera fluência — gera desistência. Priorize utilidade prática sobre completude.`}
+};
+const modal=document.getElementById('modal');let current='';
+function openPrompt(id){current=id;const p=prompts[id];document.getElementById('modalTitle').textContent=p.title;document.getElementById('modalMeta').innerHTML=p.meta.map(x=>`<span>${x}</span>`).join('');document.getElementById('modalPrompt').textContent=p.text;modal.showModal()}
+async function copyPrompt(id,btn){await navigator.clipboard.writeText(prompts[id].text);const old=btn.textContent;btn.textContent='Copiado ✓';setTimeout(()=>btn.textContent=old,1400)}
+async function copyCurrent(btn){await navigator.clipboard.writeText(prompts[current].text);const old=btn.textContent;btn.textContent='Copiado ✓';setTimeout(()=>btn.textContent=old,1400)}
+const search=document.getElementById('search'),filters=[...document.querySelectorAll('.filter')],cards=[...document.querySelectorAll('.card:not(.soon)')];let active='all';
+function apply(){const q=search.value.toLowerCase().trim();let shown=0;cards.forEach(c=>{const okCat=active==='all'||c.dataset.category===active;const okQ=!q||(c.dataset.search+' '+c.innerText).toLowerCase().includes(q);const show=okCat&&okQ;c.style.display=show?'flex':'none';if(show)shown++});document.getElementById('empty').style.display=shown?'none':'block'}
+search.addEventListener('input',apply);filters.forEach(f=>f.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));f.classList.add('active');active=f.dataset.filter;apply()}));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
+</script>
+</body>
+</html>
